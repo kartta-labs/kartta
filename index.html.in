@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Kartta Krono Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="stylesheet" type="text/css" href="slider.css" />
+    <script src='./antique/third_party/vector/mbgl/v1.10.1/mapbox-gl.js'></script>
+    <link href='./antique/third_party/vector/mbgl/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+
+    <script src='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.js'></script>
+    <link href='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
+
+	<!-- fetch latest versions from
+	    https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js
+        https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css
+        
+        style change stuff from 
+        https://github.com/mapbox/mapbox-gl-js/blob/master/debug/hillshade.html 
+	-->
+
+    <style>
+      body {
+          margin:0;
+          padding:0;
+      }
+      #map {
+          position:absolute;
+          top:0;
+          bottom:0;
+          width:100%;
+      }
+
+
+      #slider {
+          position:absolute;
+          left: 5%;
+          width: 90%;
+          top:0;
+      }
+
+/*
+	  #refresh {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          background-color: white;
+          padding: 5px; 
+		  border: 1px solid black;
+          font-family: Avenir;
+          cursor: pointer;
+      }
+*/
+/*
+      #menu {
+          background: #fff;
+          position: absolute;
+          z-index: 1;
+          top: 10px;
+          right: 50px;
+          border-radius: 3px;
+          width: 120px;
+          border: 1px solid rgba(0, 0, 0, 0.4);
+          font-family: 'Open Sans', sans-serif;
+      }
+      
+      #menu a {
+          font-size: 13px;
+          color: #404040;
+          display: block;
+          margin: 0;
+          padding: 0;
+          padding: 10px;
+          text-decoration: none;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+          text-align: center;
+      }
+      
+      #menu a:last-child {
+          border: none;
+      }
+      
+      #menu a:hover {
+          background-color: #f8f8f8;
+          color: #404040;
+      }
+      
+      #menu a.active {
+          background-color: #3887be;
+          color: #ffffff;
+      }
+      
+      #menu a.active:hover {
+          background: #3074a4;
+      }
+*/
+    </style>
+</head>
+<body>
+
+
+<div>
+<!--
+  <nav id="menu"></nav>
+ -->
+  <div id='map'></div>
+  <div class="range-wrap" id="slider">
+    <input type="range" class="range" min="1800", max="2000", step="1" value="1950">
+    <output class="bubble"></output>
+  </div>
+</div>
+
+<script>
+  var styleURL = '${APP_HOME_URL}/antique_style.json';
+  var xrayStyleURL = '${APP_HOME_URL}/xray_style.json';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: styleURL, // stylesheet location
+    center: [-73.997381,40.740341], // starting position [lng, lat]lng: -73.99931073493184, lat: 40.74364982242477
+    zoom: 17, // starting zoom,
+    minZoom: 0,
+    hash: true
+});
+map.addControl(new mapboxgl.NavigationControl());
+
+// To show red tile boundary lines, uncomment:
+map.showTileBoundaries=true;
+
+// To debug data on mouseover, uncomment:
+//map.addControl(new MapboxInspect({
+//  showInspectButton: false,
+//  showMapPopup: true
+//}));
+
+function reload() {
+  map.setStyle(styleURL);
+}
+
+// var toggleableLayerIds = ['antique', 'xray'];
+// 
+// for (var i = 0; i < toggleableLayerIds.length; i++) {
+//     var id = toggleableLayerIds[i];
+//  
+//     var link = document.createElement('a');
+//     link.href = '#';
+//     link.className = 'active';
+//     link.textContent = id;
+// 
+//     link.onclick = function(e) {
+//         var clickedLayer = this.textContent;
+//         e.preventDefault();
+//         e.stopPropagation();
+// 
+//         var styleJson = map.getStyle();
+//         var active = styleJson.name
+//         if (active !== clickedLayer ){
+//             if (active == "xray") {
+//                 map.setStyle(styleURL);
+//             } else {
+//                 map.setStyle(xrayStyleURL);
+//             }
+//         }
+// 
+//     };
+// 
+//     var layers = document.getElementById('menu');
+//     layers.appendChild(link);
+// }
+
+const allRanges = document.querySelectorAll(".range-wrap");
+
+allRanges.forEach(wrap => {
+  const range = wrap.querySelector(".range");
+  const bubble = wrap.querySelector(".bubble");
+
+  range.addEventListener("input", () => {
+    setBubble(range, bubble);
+  });
+  setBubble(range, bubble);
+});
+
+function setBubble(range, bubble) {
+  const val = range.value;
+  const min = range.min ? range.min : 0;
+  const max = range.max ? range.max : 100;
+  const newVal = Number(((val - min) * 100) / (max - min));
+  bubble.innerHTML = val;
+
+  bubble.style.left = "calc(" + newVal + "% + " + (8 - newVal * 0.15) + "px";
+
+  filter = 
+    ['all',
+     ['<=', ['get', 'start_date'], val ],
+     ['any',
+      ['!', ['has', 'end_date']],
+      ['>=', ['get', 'end_date'], val ]
+     ]
+    ];
+
+  [
+    "buildings",
+    "buildings__1",
+    "buildings__2",
+    "buildings__3",
+    "buildings__4",
+    "buildings_outline",
+    "building_names",
+    "building_names__1"
+  ].forEach(layer => map.setFilter(layer, filter));
+
+}
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+to serve:
+  1. edit index.html:
+       change styleURL and xrayStyleURL to correct full URLs for antique_style.json and xray_style.json in this directory
+  2. edit ./antique_style.json
+       change "sprite" and "glyphs" URLs to correct full URLs to antique/vector/antique_assets/sprites
+       and antique/third_party/vector/fonts/{fontstack}/{range}.pbf

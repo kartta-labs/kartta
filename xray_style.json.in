@@ -1,0 +1,72 @@
+{
+  "version":8,
+  "name": "xray",
+  "sources": {
+    "antique": {
+      "type": "vector",
+      "url":"${TILESERVER_ANTIQUE_JSON}"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "background-color": "#212121"
+      }
+    },
+    {
+      "id": "water",
+      "source": "antique",
+      "source-layer": "water",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#64b5f6",
+        "fill-opacity": 0.2
+      }
+    },
+    {
+      "id": "water line",
+      "source": "antique",
+      "source-layer": "water_line",
+      "type": "line",
+      "paint": {
+        "line-color": "#4fc3f7"
+      }
+    },
+    {
+      "id": "roads",
+      "source": "antique",
+      "source-layer": "roads",
+      "type": "line",
+      "paint": {
+        "line-color": "#f9a825"
+      }
+    },
+    {
+      "id": "buildings",
+      "source": "antique",
+      "source-layer": "buildings",
+      "type": "fill",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-color": "#ba68c8",
+        "fill-opacity": 0.5
+      }
+    },
+    {
+      "id": "places",
+      "source": "antique",
+      "source-layer": "places",
+      "type": "circle",
+      "paint": {
+        "circle-color": "#9ccc65"
+      }
+    }
+  ]
+}
