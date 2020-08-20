@@ -11,12 +11,15 @@ templates = {
 }
 files = {
     "index.html": "index.html",
+    "maponly.html": "maponly.html",
+    "kartta.css": "kartta.css",
     "map.css": "map.css",
     "slider.css": "slider.css",
     "slider.js": "slider.js",
 }
 nowatch_dirs = {
-    "antique/vector/antique_assets": "assets",
+    "assets": "assets",
+    "antique/vector/antique_assets": "antique_assets",
     "antique/third_party/vector/mbgl": "mbgl",
     "antique/third_party/vector/fonts": "fonts"
 }

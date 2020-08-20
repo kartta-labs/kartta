@@ -1,58 +1,84 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset='utf-8' />
-    <title>Kartta Krono Map</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <link rel="stylesheet" type="text/css" href="map.css" />
-    <link rel="stylesheet" type="text/css" href="slider.css" />
-    <script src='./mbgl/v1.10.1/mapbox-gl.js'></script>
-    <link href='./mbgl/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" media="screen" href="./kartta.css">
+    <link rel="icon" type="image/png" href="./assets/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="./assets/favicon-194x194.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="./assets/favicon-96x96.png" sizes="96x96">
+    <title>Kartta Home</title>
+  </head>
 
-    <script src='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.js'></script>
-    <link href='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
+  <body>
+    <header>
+      <h1>
+        <a href="/">
+          <picture>
+            <source srcset="./assets/site-logo.png" type="image/png">
+            <img srcset="./assets/site-logo.png" alt="kartta labs logo" class="logo" src="./assets/site-logo.png">
+          </picture>
+        </a>
+      </h1>
 
-</head>
-<body>
+      <nav class="secondary">
 
+        <ul>
+          <li class="compact-hide "><a href="https://canary.re.city/e/diary">User Diaries</a></li>
+          <li class="compact-hide "><a href="https://canary.re.city/e/privacy">Data Privacy / Terms</a></li>
+          <li class="compact-hide "><a href="https://canary.re.city/e/help">Help</a></li>
+          <li class="compact-hide "><a href="https://canary.re.city/e/about">About</a></li>
+          <li id="compact-secondary-nav" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="https://canary.re.city/e/#">More <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li class=""><a href="https://canary.re.city/e/diary">User Diaries</a></li>
+              <li class=""><a href="https://canary.re.city/e/copyright">Copyright</a></li>
+              <li class=""><a href="https://canary.re.city/e/help">Help</a></li>
+              <li class=""><a href="https://canary.re.city/e/about">About</a></li>
+            </ul>
+          </li>
+        </ul>
 
-<div>
-  <div id='map'></div>
-  <div class="range-wrap" id="timeslider">
-    <input type="range" class="range" min="1800", max="2000", step="1" value="1950">
-    <output class="bubble"></output>
-  </div>
-  <div id='debug-panel' class="hidden">
-    <div id="debug-close" class="debug-close">
-    </div>
-    <div class="debug-container">
-      <div>
-        <input type="checkbox" id="debug-grid" name="debug-grid">
-        <label for="debug-grid">Show Tile Grid</label>
+      <div class="dropdown user-menu logged-in">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="https://canary.re.city/e/#">
+          <img width="25" height="25" class="user_thumbnail_tiny" alt="" src="./assets/avatar_small.png">
+          <span class="user-button">
+            <span class="username">
+              e@google
+            </span>
+            <b class="caret"></b>
+          </span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="https://canary.re.city/e/messages/inbox">
+              <span class="count-number">0</span>
+              My Messages
+            </a>    
+           </li>
+          <li>
+            <a href="https://canary.re.city/e/user/e@google">My Profile</a>
+          </li>
+          <li>
+            <a href="https://canary.re.city/e/user/e@google/account">My Settings</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+          </li>
+          <li>
+            <a href="https://canary.re.city/e/logout?referer=%2Fe&amp;session=91525fa31cdd1246f221e4dc16581a8d#map=13/40.7500/-73.9900&amp;layers=A">Log Out</a>
+          </li>
+        </ul>
       </div>
-      <div>
-        <input type="checkbox" id="debug-inspect" name="debug-inspect">
-        <label for="debug-inspect">Inspect Data Under Cursor</label>
-      </div>
-      <div>
-        Map Style:
-        <div>
-          <input type="radio" id="debug-map-style-antique" name="debug-map-style" value="antique" checked="true">
-          <label for="debug-map-style-antique">Antique</label>
-        </div>
-        <div>
-          <input type="radio" id="debug-map-style-xray" name="debug-map-style" value="xray">
-          <label for="debug-map-style-xray">X-Ray</label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id='debug-splash'>
-    Press '0' for debug panel
-  </div>
-</div>
+    </nav>
+  </header>
 
-<script src="./map.js"></script>
+  <div>
+  content goes here
+  </div>
 
-</body>
+
+
+  </body>
 </html>

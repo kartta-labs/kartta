@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Kartta Krono Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="stylesheet" type="text/css" href="map.css" />
+    <link rel="stylesheet" type="text/css" href="slider.css" />
+    <script src='./mbgl/v1.10.1/mapbox-gl.js'></script>
+    <link href='./mbgl/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+
+    <script src='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.js'></script>
+    <link href='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
+
+</head>
+<body>
+
+
+<div>
+  <div id='map'></div>
+  <div class="range-wrap" id="timeslider">
+    <input type="range" class="range" min="1800", max="2000", step="1" value="1950">
+    <output class="bubble"></output>
+  </div>
+  <div id='debug-panel' class="hidden">
+    <div id="debug-close" class="debug-close">
+    </div>
+    <div class="debug-container">
+      <div>
+        <input type="checkbox" id="debug-grid" name="debug-grid">
+        <label for="debug-grid">Show Tile Grid</label>
+      </div>
+      <div>
+        <input type="checkbox" id="debug-inspect" name="debug-inspect">
+        <label for="debug-inspect">Inspect Data Under Cursor</label>
+      </div>
+      <div>
+        Map Style:
+        <div>
+          <input type="radio" id="debug-map-style-antique" name="debug-map-style" value="antique" checked="true">
+          <label for="debug-map-style-antique">Antique</label>
+        </div>
+        <div>
+          <input type="radio" id="debug-map-style-xray" name="debug-map-style" value="xray">
+          <label for="debug-map-style-xray">X-Ray</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id='debug-splash'>
+    Press '0' for debug panel
+  </div>
+</div>
+
+<script src="./map.js"></script>
+
+</body>
+</html>
