@@ -63,6 +63,8 @@ def LastMTime(templates):
     t = max(t, os.path.getmtime(file))
   return t
 
+if not os.path.exists("config.env"):
+  os.system("cp example-config.env config.env")
 EnsureDirs(templates)
 EnsureDirs(files)
 EnsureDirs(nowatch_dirs)

@@ -3,16 +3,26 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" media="screen" href="./kartta.css">
     <link rel="icon" type="image/png" href="./assets/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="./assets/favicon-194x194.png" sizes="194x194">
     <link rel="icon" type="image/png" href="./assets/favicon-96x96.png" sizes="96x96">
+
+
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="stylesheet" type="text/css" href="map.css" />
+    <link rel="stylesheet" type="text/css" href="slider.css" />
+    <script src='./mbgl/v1.10.1/mapbox-gl.js'></script>
+    <link href='./mbgl/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+
+    <script src='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.js'></script>
+    <link href='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
+
     <title>Kartta Home</title>
   </head>
 
   <body>
-    <header>
+    <header class="size-to-content">
       <h1>
         <a href="/">
           <picture>
@@ -39,7 +49,7 @@
             </ul>
           </li>
         </ul>
-
+      <!--
       <div class="dropdown user-menu logged-in">
         <a class="dropdown-toggle" data-toggle="dropdown" href="https://canary.re.city/e/#">
           <img width="25" height="25" class="user_thumbnail_tiny" alt="" src="./assets/avatar_small.png">
@@ -71,14 +81,47 @@
           </li>
         </ul>
       </div>
+      -->
     </nav>
   </header>
 
-  <div>
-  content goes here
+  <div class="fill-remaining">
+    <div id="map-container">
+      <div id='map'></div>
+      <div class="range-wrap" id="timeslider">
+        <input type="range" class="range" min="1800", max="2000", step="1" value="1950">
+        <output class="bubble"></output>
+      </div>
+      <div id='debug-panel' class="hidden">
+        <div id="debug-close" class="debug-close"></div>
+        <div class="debug-container">
+          <div>
+            <input type="checkbox" id="debug-grid" name="debug-grid">
+            <label for="debug-grid">Show Tile Grid</label>
+          </div>
+          <div>
+            <input type="checkbox" id="debug-inspect" name="debug-inspect">
+            <label for="debug-inspect">Inspect Data Under Cursor</label>
+          </div>
+          <div>
+            Map Style:
+            <div>
+              <input type="radio" id="debug-map-style-antique" name="debug-map-style" value="antique" checked="true">
+              <label for="debug-map-style-antique">Antique</label>
+            </div>
+            <div>
+              <input type="radio" id="debug-map-style-xray" name="debug-map-style" value="xray">
+              <label for="debug-map-style-xray">X-Ray</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='debug-splash'>
+        Press '0' for debug panel
+      </div>
+    </div>
   </div>
 
-
-
+  <script src="./map.js"></script>
   </body>
 </html>
