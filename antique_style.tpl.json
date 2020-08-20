@@ -1,7 +1,7 @@
 {
   "version":8,
-  "sprite":"${APP_HOME_URL}/antique/vector/antique_assets/sprites",
-  "glyphs":"${APP_HOME_URL}/antique/third_party/vector/fonts/{fontstack}/{range}.pbf",
+  "sprite":"${APP_HOME_URL}/assets/sprites",
+  "glyphs":"${APP_HOME_URL}/fonts/{fontstack}/{range}.pbf",
   "sources":{
     "antique":{
       "type":"vector",

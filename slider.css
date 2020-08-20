@@ -125,10 +125,6 @@ input[type=range]:focus::-ms-fill-upper {
     background: #367ebd;
 }
 
-
-
-
-
 .bubble {
   background: red;
   color: white;
@@ -139,14 +135,3 @@ input[type=range]:focus::-ms-fill-upper {
   margin-top: 20px;
   transform: translateX(-50%);
 }
-/*
-.bubble::after {
-  content: "";
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: red;
-  top: -2px;
-  left: 50%;
-}
-*/

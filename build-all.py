@@ -5,9 +5,20 @@ import os
 import sys
 
 templates = {
-    "index.html.in": "index.html",
-    "antique_style.json.in": "antique_style.json",
-    "xray_style.json.in": "xray_style.json"
+    "map.tpl.js": "map.js",
+    "antique_style.tpl.json": "antique_style.json",
+    "xray_style.tpl.json": "xray_style.json"
+}
+files = {
+    "index.html": "index.html",
+    "map.css": "map.css",
+    "slider.css": "slider.css",
+    "slider.js": "slider.js",
+}
+nowatch_dirs = {
+    "antique/vector/antique_assets": "assets",
+    "antique/third_party/vector/mbgl": "mbgl",
+    "antique/third_party/vector/fonts": "fonts"
 }
 
 
@@ -25,20 +36,37 @@ if len(sys.argv) == 2:
   else:
     usage()
 
-
-template_args = " ".join([(k + " " + templates[k]) for k in templates])
+def EnsureDirs(mapping):
+  for k in mapping:
+    d = os.path.dirname(os.path.join("build", mapping[k]))
+    if not os.path.exists(d):
+      os.system("mkdir -p %s" % d)
 
 def BuildAll():
-  cmd = "bash ./subst ./config.env " + template_args
-  print(cmd)
-  return os.system(cmd)
+  print("building")
+  template_args = " ".join([(k + " " + os.path.join("./build",templates[k])) for k in templates])
+  os.system("bash ./subst ./config.env " + template_args)
+  for k in files:
+    os.system("cp %s ./build/%s" % (k, files[k]))
+  os.system("chmod -R a+rw ./build")
+  os.system("find build -type d -exec chmod a+x \\{\\} \\;")
 
 # returns the most recent mtime of all template files
 def LastMTime(templates):
   t = os.path.getmtime("./config.env")
-  for template in templates:
-    t = max(t, os.path.getmtime(template))
+  for file in templates:
+    t = max(t, os.path.getmtime(file))
+  for file in files:
+    t = max(t, os.path.getmtime(file))
   return t
+
+EnsureDirs(templates)
+EnsureDirs(files)
+EnsureDirs(nowatch_dirs)
+
+# copy nowatch_dirs just once
+for k in nowatch_dirs:
+    os.system("cp -r %s build/%s" % (k, nowatch_dirs[k]))
 
 mtime = LastMTime(templates)
 BuildAll()

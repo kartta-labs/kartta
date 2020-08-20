@@ -1,0 +1,81 @@
+body {
+    margin:0;
+    padding:0;
+}
+#map {
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:100%;
+}
+
+
+#timeslider {
+    position:absolute;
+    left: 5%;
+    width: 90%;
+    top:0;
+}
+
+.hidden {
+    display: none;
+}
+
+.debug-container {
+  margin: 20px;
+}
+
+#debug-panel {
+    position:absolute;
+    left: 10%;
+    top: 10%;
+    width: 80%;
+    height: 90%;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    opacity: 0.95;
+    border: 1px solid black;
+    border-radius: 15px;
+}
+
+#debug-splash {
+    position:absolute;
+    left: 10%;
+    top: 10%;
+    width: 80%;
+    height: 90%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 15px;
+    text-align: center;
+    opacity: 1;
+    padding-top: 50px;
+    font-size: 18pt;
+}
+
+.debug-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 24px;
+  height: 24px;
+  opacity: 0.3;
+}
+.debug-close:hover {
+  opacity: 1;
+}
+.debug-close:before, .debug-close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 25px;
+  width: 2px;
+  background-color: #333;
+}
+.debug-close:before {
+  transform: rotate(45deg);
+}
+.debug-close:after {
+  transform: rotate(-45deg);
+}
