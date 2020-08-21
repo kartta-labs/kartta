@@ -1,9 +1,9 @@
-if [ ! -d /slidermap/build ] ; then
-  mkdir /slidermap/build
+if [ ! -d /map/build ] ; then
+  mkdir /map/build
 fi
 
-cd /slidermap
+cd /map
 python ./build-all.py --watch &
 
-cd /slidermap/build
+cd /map/build
 python -m SimpleHTTPServer

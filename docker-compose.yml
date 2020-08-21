@@ -1,12 +1,11 @@
 version: '3.3'
 services:
-  slidermap:
+  map:
     build:
       context: .
       dockerfile: Dockerfile
-    entrypoint: ["/bin/bash", "/slidermap/docker-launch.sh"]
-    #entrypoint: ["tail", "-f", "/dev/null"]
+    entrypoint: ["/bin/bash", "/map/docker-launch.sh"]
     volumes:
-      - .:/slidermap
+      - .:/map
     ports:
       - "8000:8000"

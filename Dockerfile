@@ -6,10 +6,10 @@ RUN apt-get update -qq
 
 RUN apt-get install -y build-essential git vim emacs curl iputils-ping gettext-base python
 
-RUN mkdir -p /slidermap
+RUN mkdir -p /map
 
-COPY . /slidermap
+COPY . /map
 
-WORKDIR /slidermap
+WORKDIR /map
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
