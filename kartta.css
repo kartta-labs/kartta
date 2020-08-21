@@ -118,3 +118,13 @@ nav.secondary>ul a:hover {
 #compact-secondary-nav {
   display:none
 }
+
+.kartta-logo-menu-wrapper {
+  margin: 0;
+  padding-top:15px;
+  font-weight:600;
+  line-height:1.2;
+  font-size:18px;
+  display:inline-block;
+  float:left;
+}

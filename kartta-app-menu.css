@@ -32,16 +32,6 @@
   bottom: 4px;
 }
 
-.kartta-app-menu-wrapper {
-  margin: 0;
-  padding-top:15px;
-  font-weight:600;
-  line-height:1.2;
-  font-size:18px;
-  display:inline-block;
-  float:left;
-}
-
 .kartta-app-menu-display-wrapper {
   margin: 0;
   padding: 0;
