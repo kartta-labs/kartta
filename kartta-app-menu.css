@@ -88,3 +88,21 @@
 .kartta-app-menu-hidden {
   display: none;
 }
+
+.kartta-app-menu-logo {
+  width:38px;
+  height:42px;
+  margin-top:-8px;
+  vertical-align:middle;
+}
+
+.kartta-app-menu-wrapper {
+  margin: 0;
+  padding-left: 10px;
+  padding-top:15px;
+  font-weight:600;
+  line-height:1.2;
+  font-size:18px;
+  display:inline-block;
+  float:left;
+}

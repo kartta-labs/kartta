@@ -5,8 +5,7 @@
         { "text": "map", "url": "/m/" },
         { "text": "editor", "url": "/e/" },
         { "text": "warper", "url": "/w/" },
-        { "text": "buildings", "url": "/h/" },
-        { "text": "time", "url": "/t/" },
+        { "text": "3d models", "url": "/h/" },
     ];
 
     function currentPrefix() {
@@ -103,10 +102,32 @@
       return elDiv;
     }
 
+
+    const a = createElement("a", {
+      "href": "/"
+    });
+    const picture = createElement("picture");
+    picture.appendChild(createElement("source", {
+      "srcset": "/m/assets/site-logo.png",
+      "type": "image/png"
+    }));
+    picture.appendChild(createElement("img", {
+      "srcset": "/m/assets/site-logo.png",
+      "alt": "kartta labs logo",
+      "class": "kartta-app-menu-logo",
+      "src": "/m/assets/site-logo.png"
+    }));
+    a.appendChild(picture);
+
     const appMenuPlaceholder = document.getElementById("kartta-app-menu-placeholder");
 
-    appMenuPlaceholder.parentNode.insertBefore(createAppMenu(appMenuDropDown, "mappni"), appMenuPlaceholder);
-    appMenuPlaceholder.parentNode.removeChild(appMenuPlaceholder);
+    const appMenuWrapper = createElement("div", {
+      "class": "kartta-app-menu-wrapper"
+    });
+    appMenuWrapper.appendChild(a);
+    appMenuWrapper.appendChild(createAppMenu(appMenuDropDown));
 
+    appMenuPlaceholder.parentNode.insertBefore(appMenuWrapper, appMenuPlaceholder);
+    appMenuPlaceholder.parentNode.removeChild(appMenuPlaceholder);
   });
 })();

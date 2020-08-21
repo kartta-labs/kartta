@@ -79,13 +79,6 @@ header a,header a:hover {
   text-decoration:none
 }
 
-header img.logo {
-  width:38px;
-  height:42px;
-  margin-top:-8px;
-  vertical-align:middle;
-}
-
 header h1 {
   margin:0;
   padding-top:15px
@@ -117,14 +110,4 @@ nav.secondary>ul a:hover {
 
 #compact-secondary-nav {
   display:none
-}
-
-.kartta-logo-menu-wrapper {
-  margin: 0;
-  padding-top:15px;
-  font-weight:600;
-  line-height:1.2;
-  font-size:18px;
-  display:inline-block;
-  float:left;
 }
