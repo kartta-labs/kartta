@@ -18,19 +18,40 @@
     <script src='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.js'></script>
     <link href='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
 
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600&display=swap" rel="stylesheet">
+    
+
     <title>Kartta Home</title>
   </head>
 
   <body>
     <header class="size-to-content">
-      <h1>
+      <div class="app-menu-wrapper">
+
         <a href="/">
           <picture>
-            <source srcset="./assets/site-logo.png" type="image/png">
-            <img srcset="./assets/site-logo.png" alt="kartta labs logo" class="logo" src="./assets/site-logo.png">
+            <source srcset="./assets/site-logo-short.png" type="image/png">
+            <img srcset="./assets/site-logo-short.png" alt="kartta labs logo" class="logo" src="./assets/site-logo-short.png">
           </picture>
         </a>
-      </h1>
+        <div class="app-menu-display-wrapper">
+          <div class="app-menu-display" id="app-menu-display">
+            <span class="app-name-menu-caret"><b class="caret"></b></span>
+            <span class="app-name-menu">
+              editor
+            </span>
+          </div>
+
+          <div class="app-menu-display-dropdown app-menu-hidden" id="app-menu-display-dropdown">
+            <a href="/"><div class="item">map</div></a>
+            <a href="/e/"><div class="item">editor</div></a>
+            <a href="/w/"><div class="item">warper</div></a>
+            <a href="/h/"><div class="item">buildings</div></a>
+          </div>
+        </div>
+
+
+      </div>
 
       <nav class="secondary">
 
@@ -112,6 +133,7 @@
     </div>
   </div>
 
+  <script src="./kartta.js"></script>
   <script src="./map.js"></script>
   </body>
 </html>

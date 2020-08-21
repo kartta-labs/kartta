@@ -13,6 +13,7 @@ files = {
     "index.html": "index.html",
     "maponly.html": "maponly.html",
     "kartta.css": "kartta.css",
+    "kartta.js": "kartta.js",
     "map.css": "map.css",
     "slider.css": "slider.css",
     "slider.js": "slider.js",
@@ -70,8 +71,11 @@ EnsureDirs(files)
 EnsureDirs(nowatch_dirs)
 
 # copy nowatch_dirs just once
-for k in nowatch_dirs:
-    os.system("cp -r %s build/%s" % (k, nowatch_dirs[k]))
+for src_dir in nowatch_dirs:
+  dest_dir = os.path.join("build", nowatch_dirs[src_dir])
+  if os.path.exists(dest_dir):
+    os.system("/bin/rm -rf %s" % dest_dir)
+  os.system("cp -r %s %s" % (src_dir, dest_dir))
 
 mtime = LastMTime(templates)
 BuildAll()
