@@ -67,6 +67,7 @@ def LastMTime(templates):
 
 if not os.path.exists("config.env"):
   os.system("cp example-config.env config.env")
+  os.system("chmod a+r config.env")
 EnsureDirs(templates)
 EnsureDirs(files)
 EnsureDirs(nowatch_dirs)
