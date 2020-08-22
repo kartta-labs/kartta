@@ -106,3 +106,25 @@
   display:inline-block;
   float:left;
 }
+
+.kartta-cookie-bar {
+    background-color: #eeeeee;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    padding: 0.8rem 2rem;
+}
+
+.kartta-cookie-bar-left {
+    margin: 0;
+}
+
+.kartta-cookie-bar-ok-link {
+    font-weight: 600;
+    padding: 6px 6px 6px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    background: #ed220d;
+    color: white !important;
+}
