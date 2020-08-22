@@ -94,6 +94,12 @@
   }
 
   function installAppMenu() {
+    const appMenuPlaceholder = document.getElementById("kartta-app-menu");
+
+    if (!appMenuPlaceholder) {
+      return;
+    }
+
     const appMenuDropDown = createDropDown();
 
     const appMenuDismiss = (e) => {
@@ -120,7 +126,6 @@
     }));
     a.appendChild(picture);
 
-    const appMenuPlaceholder = document.getElementById("kartta-app-menu-placeholder");
 
     const appMenuWrapper = createElement("div", {
       "class": "kartta-app-menu-wrapper"
@@ -179,7 +184,10 @@
   }
 
   function installCookieBar() {
-    const cookieBarPlaceholder = document.getElementById("kartta-cookie-bar-placeholder");
+    const cookieBarPlaceholder = document.getElementById("kartta-app-cookie-bar");
+    if (!cookieBarPlaceholder) {
+      return;
+    }
     if (readCookie("kartta_allow_cookies") != "yes") {
       cookieBarPlaceholder.parentNode.insertBefore(createCookieBar(), cookieBarPlaceholder);
     }
