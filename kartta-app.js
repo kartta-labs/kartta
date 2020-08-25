@@ -176,7 +176,14 @@
     }, "Ok, Got it."));
     rightDiv.addEventListener('click', (e) => {
       writeCookie("kartta_allow_cookies", "yes");
-      outerDiv.parentNode.removeChild(outerDiv);
+      // In a perfect world we would just do
+      //    outerDiv.parentNode.removeChild(outerDiv);
+      // here to dynamically remove the cookie bar, but instead we
+      // force a page reload because some apps (e.g. editor) don't
+      // correctly handle reflowing their content when an element is
+      // removed.  Since the cookie is set at this point, the page
+      // will be rendered without the cookie bar after reload.
+      window.location.reload(false);
     });
     outerDiv.appendChild(leftDiv);
     outerDiv.appendChild(rightDiv);
