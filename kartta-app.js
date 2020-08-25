@@ -80,6 +80,9 @@
     elDiv.setAttribute("class", "kartta-item");
     elDiv.innerHTML = text;
     elA.appendChild(elDiv);
+    elDiv.addEventListener('click', (e) => {
+      window.location.href = window.location.protocol + "//" + window.location.hostname + url;
+    });
     return elA;
   }
 
