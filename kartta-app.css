@@ -19,14 +19,14 @@
 
 .kartta-app-name-menu {
   font-family: 'Zilla Slab', serif; font-size:26px;
-  color:#1d1dd0;
+  color: #ed220d;
   margin: 0;
   padding: 0;
 }
 
 
 .kartta-app-name-menu-caret .kartta-caret {
-  border-top:8px solid #1d1dd0;
+  border-top:8px solid #ed220d;
   position: relative;
   left: 0px;
   bottom: 4px;
@@ -49,7 +49,7 @@
 }
 
 .kartta-app-menu-display:hover {
-  background-color: #1d1dd0;
+  background-color: #ed220d;
 }
 .kartta-app-menu-display:hover .kartta-app-name-menu {
   color: white;
@@ -65,13 +65,14 @@
   left: 0;
   top: 0;
   font-family: 'Zilla Slab', serif; font-size:26px;
-  color:#1d1dd0;
+  color:#ed220d;
   background-color: white;
   border: 1px solid black;
   border-radius: 5px;
 }
 
 .kartta-app-menu-display-dropdown .kartta-item {
+  color:#ed220d;
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 5px;
@@ -81,7 +82,7 @@
 }
 
 .kartta-app-menu-display-dropdown .kartta-item:hover {
-  background-color: #1d1dd0;
+  background-color: #ed220d;
   color: white;
 }
 
@@ -125,6 +126,6 @@
     padding: 6px 6px 6px 6px;
     border-radius: 4px;
     text-transform: uppercase;
-    background: #1d1dd0;
+    background: #ed220d;
     color: white !important;
 }
