@@ -3,7 +3,7 @@ if [ ! -d /map/build ] ; then
 fi
 
 cd /map
-python ./build-all.py --watch &
+python3 ./build-all.py --watch &
 
 cd /map/build
-python -m SimpleHTTPServer
+python3 -m http.server

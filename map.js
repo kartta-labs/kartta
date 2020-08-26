@@ -1,5 +1,8 @@
-var antiqueStyleURL = '${APP_HOME_URL}/antique_style.json';
-var xrayStyleURL = '${APP_HOME_URL}/xray_style.json';
+document.addEventListener("DOMContentLoaded", () => {
+
+
+var antiqueStyleURL = '{{ APP_HOME_URL }}/antique_style.json';
+var xrayStyleURL = '{{ APP_HOME_URL }}/xray_style.json';
 
 var map = new mapboxgl.Map({
     container: 'map', // container id
@@ -30,7 +33,7 @@ range.addEventListener("input", () => {
 });
 
 map.on('load', () => {
-  range.value = "${INITIAL_YEAR}";
+  range.value = "{{ INITIAL_YEAR }}";
   setBubble(range, bubble);
 });
 
@@ -102,7 +105,10 @@ function setBubble(range, bubble) {
   const newVal = Number(((val - min) * 100) / (max - min));
   bubble.innerHTML = val;
 
-  bubble.style.left = "calc(" + newVal + "% + " + (8 - newVal * 0.15) + "px";
+  const width = bubble.offsetWidth;
+
+//  bubble.style.left = "calc(" + newVal + "% + " + (8 - newVal * 0.15) + "px)";
+  bubble.style.left = "calc(" + newVal + "% - " + (width/2) + "px)";
 
   filter =
     ['all',
@@ -125,3 +131,5 @@ function setBubble(range, bubble) {
   ].forEach(layer => map.setFilter(layer, filter));
 
 }
+
+});

@@ -1,15 +1,7 @@
-# docker build -t cgimap:latest -f Dockerfile-cgimap .
+FROM python:3
 
-FROM ubuntu:18.04
-
-RUN apt-get update --fix-missing -qq
-
-RUN apt-get install -y build-essential git vim emacs curl iputils-ping gettext-base python
-
-RUN mkdir -p /map
+RUN pip3 install jinja2 pyyaml
 
 COPY . /map
 
 WORKDIR /map
-
-ENTRYPOINT ["tail", "-f", "/dev/null"]

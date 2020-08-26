@@ -5,6 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     entrypoint: ["/bin/bash", "/map/docker-launch.sh"]
+    #entrypoint: ["python3", "/map/build-all.py"]
     volumes:
       - .:/map
     ports:

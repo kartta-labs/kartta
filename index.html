@@ -1,83 +1,32 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" media="screen" href="./kartta.css">
-    <link rel="stylesheet" media="screen" href="/m/kartta-app.css">
-    <script src="/m/kartta-app.js"></script>
-    <link rel="icon" type="image/png" href="./assets/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="./assets/favicon-194x194.png" sizes="194x194">
-    <link rel="icon" type="image/png" href="./assets/favicon-96x96.png" sizes="96x96">
+{% extends 'templates/site-with-overlay-footer.html' %}
 
+{% set title %}
+  Kartta Labs - Home
+{% endset %}
 
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <link rel="stylesheet" type="text/css" href="map.css" />
-    <link rel="stylesheet" type="text/css" href="slider.css" />
-    <script src='./mbgl/v1.10.1/mapbox-gl.js'></script>
-    <link href='./mbgl/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+{% set headmatter %}
+  <script src="./map.js"></script>
+  <link rel="stylesheet" type="text/css" href="map.css" />
+  <link rel="stylesheet" type="text/css" href="slider.css" />
+  <script src='./mbgl/v1.10.1/mapbox-gl.js'></script>
+  <link href='./mbgl/v1.10.1/mapbox-gl.css' rel='stylesheet' />
 
-    <script src='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.js'></script>
-    <link href='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
+  <script src='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.js'></script>
+  <link href='https://github.com/lukasmartinelli/mapbox-gl-inspect/releases/download/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
+{% endset %}
 
-    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600&display=swap" rel="stylesheet">
-    
+{% set headercontent %}
+  <div class="timeslider-wrapper">
+    <div id="timeslider">
+      <input type="range" class="range" min="1800", max="2000", step="1" value="1950">
+      <output class="bubble"></output>
+    </div>
+  </div>
+{% endset %}
 
-    <title>Kartta Home</title>
-  </head>
-  <body>
-    <div id="kartta-app-cookie-bar"></div>
-    <header class="size-to-content">
-      <div id="kartta-app-menu" ></div>
-      <nav class="secondary">
-        <ul>
-          <li class="compact-hide "><a href="https://canary.re.city/e/privacy">Data Privacy / Terms</a></li>
-          <li class="compact-hide "><a href="https://canary.re.city/e/help">Help</a></li>
-          <li class="compact-hide "><a href="https://canary.re.city/e/about">About</a></li>
-        </ul>
-      <!--
-      <div class="dropdown user-menu logged-in">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="https://canary.re.city/e/#">
-          <img width="25" height="25" class="user_thumbnail_tiny" alt="" src="./assets/avatar_small.png">
-          <span class="user-button">
-            <span class="username">
-              e@google
-            </span>
-            <b class="caret"></b>
-          </span>
-        </a>
-        <ul class="dropdown-menu">
-          <li>
-            <a href="https://canary.re.city/e/messages/inbox">
-              <span class="count-number">0</span>
-              My Messages
-            </a>    
-           </li>
-          <li>
-            <a href="https://canary.re.city/e/user/e@google">My Profile</a>
-          </li>
-          <li>
-            <a href="https://canary.re.city/e/user/e@google/account">My Settings</a>
-          </li>
-          <li class="divider"></li>
-          <li>
-          </li>
-          <li>
-            <a href="https://canary.re.city/e/logout?referer=%2Fe&amp;session=91525fa31cdd1246f221e4dc16581a8d#map=13/40.7500/-73.9900&amp;layers=A">Log Out</a>
-          </li>
-        </ul>
-      </div>
-      -->
-    </nav>
-  </header>
-
-  <div class="fill-remaining">
+{% block content %}
     <div id="map-container">
       <div id='map'></div>
-      <div class="range-wrap" id="timeslider">
-        <input type="range" class="range" min="1800", max="2000", step="1" value="1950">
-        <output class="bubble"></output>
-      </div>
       <div id='debug-panel' class="hidden">
         <div id="debug-close" class="debug-close"></div>
         <div class="debug-container">
@@ -106,8 +55,4 @@
         Press '0' for debug panel
       </div>
     </div>
-  </div>
-
-  <script src="./map.js"></script>
-  </body>
-</html>
+{% endblock %}

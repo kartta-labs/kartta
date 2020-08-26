@@ -1,9 +1,9 @@
 (()=>{
   const menuItems = [
-      { "text": "map", "url": "/m/" },
-      { "text": "editor", "url": "/e/" },
-      { "text": "warper", "url": "/w/" },
-      { "text": "3d models", "url": "/h/" },
+      { "menuText": "home",        "displayText": "",                  "url": "{{ APP_PREFIX }}/" },
+      { "menuText": "editor",     "displayText": "editor",            "url": "/e/" },
+      { "menuText": "warper",     "displayText": "warper",            "url": "/w/" },
+/*      { "menuText": "3d models",  "displayText": "3d models",         "url": "/h/" }, */
   ];
 
   function currentPrefix() {
@@ -15,10 +15,10 @@
     return loc.substring(0, i+1);
   }
 
-  function menuText(url) {
+  function displayText(url) {
     for (let i = 0; i < menuItems.length; ++i) {
       if (menuItems[i].url == url) {
-        return menuItems[i].text;
+        return menuItems[i].displayText;
       }
     }
     return null;
@@ -61,7 +61,7 @@
     }));
     const span2 = createElement("span", {
       "class": "kartta-app-name-menu"
-    }, menuText(currentPrefix()));
+    }, displayText(currentPrefix()));
 
     const div = createElement("div", {
       "class": "kartta-app-menu-display",
@@ -81,7 +81,13 @@
     elDiv.innerHTML = text;
     elA.appendChild(elDiv);
     elDiv.addEventListener('click', (e) => {
-      window.location.href = window.location.protocol + "//" + window.location.hostname + url;
+      window.location.href = (
+          window.location.protocol
+              + "//"
+              + window.location.hostname
+              + (window.location.port != "" ? (":" + window.location.port) : "")
+              + url
+      );
     });
     return elA;
   }
@@ -91,7 +97,7 @@
     elDiv.setAttribute("class", "kartta-app-menu-display-dropdown kartta-app-menu-hidden");
     elDiv.setAttribute("id", "kartta-app-menu-display-dropdown");
     menuItems.forEach(item => {
-      elDiv.appendChild(createMenuItem(item.text, item.url));
+      elDiv.appendChild(createMenuItem(item.menuText, item.url));
     });
     return elDiv;
   }
@@ -118,14 +124,14 @@
     });
     const picture = createElement("picture");
     picture.appendChild(createElement("source", {
-      "srcset": "/m/assets/site-logo.png",
+      "srcset": "{{ APP_PREFIX }}/assets/site-logo.png",
       "type": "image/png"
     }));
     picture.appendChild(createElement("img", {
-      "srcset": "/m/assets/site-logo.png",
+      "srcset": "{{ APP_PREFIX }}/assets/site-logo.png",
       "alt": "kartta labs logo",
       "class": "kartta-app-menu-logo",
-      "src": "/m/assets/site-logo.png"
+      "src": "{{ APP_PREFIX }}/assets/site-logo.png"
     }));
     a.appendChild(picture);
 

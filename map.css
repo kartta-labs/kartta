@@ -8,6 +8,7 @@
 */
 
 #map-container {
+  overflow: hidden;
   position: relative;
   top: 0;
   left: 0;
@@ -21,12 +22,14 @@
 }
 
 
+/*
 #timeslider {
     position:absolute;
     left: 5%;
     width: 90%;
     top:10px;
 }
+*/
 
 .hidden {
     display: none;

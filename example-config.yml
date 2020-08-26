@@ -1,0 +1,8 @@
+APP_PREFIX: ""
+APP_HOME_URL: "http://localhost:8000"
+TILESERVER_ANTIQUE_JSON: "https://vectortiles.example.org/capabilities/antique.json"
+INITIAL_YEAR: "1900"
+SITE_NAME: "Kartta Labs"
+CONTACT_EMAIL: "kartta@example.com"
+SLIDER_TRACK_HEIGHT: "5.5px"
+SLIDER_TRACK_COLOR: "#1d1dd0"
