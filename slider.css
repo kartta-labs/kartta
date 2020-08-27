@@ -1,3 +1,6 @@
+{% set slider_track_height = "5.5px"  %}
+{% set slider_track_color = "#1d1dd0" %}
+
 input[type=range] {
     -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
     width: 100%; /* Specific width is required for Firefox. */
@@ -73,34 +76,34 @@ input[type=range]::-ms-thumb {
  */
 input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
-    height: {{ SLIDER_TRACK_HEIGHT }};
+    height: {{ slider_track_height }};
     cursor: pointer;
 /*    box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; */
 /*    background: #3071a9; */
-    background: {{ SLIDER_TRACK_COLOR }};
+    background: {{ slider_track_color }};
     border-radius: 1.3px;
     border: 0.2px solid #010101;
 }
 
 input[type=range]:focus::-webkit-slider-runnable-track {
 /*    background: #367ebd; */
-    background: {{ SLIDER_TRACK_COLOR }};
+    background: {{ slider_track_color }};
 }
 
 input[type=range]::-moz-range-track {
     width: 100%;
-    height: {{ SLIDER_TRACK_HEIGHT }};
+    height: {{ slider_track_height }};
     cursor: pointer;
     box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
     /*background: #3071a9; */
-    background: {{ SLIDER_TRACK_COLOR }};
+    background: {{ slider_track_color }};
     border-radius: 1.3px;
     border: 0.2px solid #010101;
 }
 
 input[type=range]::-ms-track {
     width: 100%;
-    height: {{ SLIDER_TRACK_HEIGHT }};
+    height: {{ slider_track_height }};
     cursor: pointer;
     background: transparent;
     border-color: transparent;

@@ -1,9 +1,21 @@
 (()=>{
   const menuItems = [
-      { "menuText": "home",        "displayText": "",                  "url": "{{ APP_PREFIX }}/" },
-      { "menuText": "editor",     "displayText": "editor",            "url": "/e/" },
-      { "menuText": "warper",     "displayText": "warper",            "url": "/w/" },
-/*      { "menuText": "3d models",  "displayText": "3d models",         "url": "/h/" }, */
+      { "menuText": "home",
+        "url": "{{ APP_PREFIX }}/",
+        "logo": "{{ APP_PREFIX }}/assets/site-logo-long.png"
+      },
+      { "menuText": "editor",
+        "url": "/e/",
+        "logo": "{{ APP_PREFIX }}/assets/editor-logo.png"
+      },
+      { "menuText": "warper",
+        "url": "/w/",
+        "logo": "{{ APP_PREFIX }}/assets/warper-logo.png"
+      },
+      { "menuText": "reservoir",
+        "url": "/r/",
+        "logo": "{{ APP_PREFIX }}/assets/reservoir-logo.png"
+      }
   ];
 
   function currentPrefix() {
@@ -15,13 +27,14 @@
     return loc.substring(0, i+1);
   }
 
-  function displayText(url) {
+  function currentLogoUrl() {
+    url = currentPrefix();
     for (let i = 0; i < menuItems.length; ++i) {
       if (menuItems[i].url == url) {
-        return menuItems[i].displayText;
+        return menuItems[i].logo;
       }
     }
-    return null;
+    return menuItems[0].logo;
   }
 
   function createElement(tag, attrs, text) {
@@ -37,47 +50,11 @@
     return el;
   }
 
-  function createAppMenu(appMenuDropDown, appMenuDismiss) {
-    const div = createElement("div", {
-      "class": "kartta-app-menu-display-wrapper"
-    });
-    const appMenuDisplay = createAppMenuDisplay();
-    appMenuDisplay.addEventListener('click', (e) => {
-      appMenuDropDown.classList.remove("kartta-app-menu-hidden");
-      e.stopPropagation();
-      document.addEventListener('click', appMenuDismiss);
-    });
-    div.appendChild(appMenuDisplay);
-    div.appendChild(appMenuDropDown);
-    return div;
-  }
-
-  function createAppMenuDisplay() {
-    const span1 = createElement("span", {
-      "class": "kartta-app-name-menu-caret"
-    });
-    span1.appendChild(createElement("b", {
-      "class": "kartta-caret"
-    }));
-    const span2 = createElement("span", {
-      "class": "kartta-app-name-menu"
-    }, displayText(currentPrefix()));
-
-    const div = createElement("div", {
-      "class": "kartta-app-menu-display",
-      "id": "kartta-app-menu-display"
-    });
-
-    div.appendChild(span1);
-    div.appendChild(span2);
-    return div;
-  }
-
   function createMenuItem(text, url) {
     const elA = document.createElement("a");
     elA.setAttribute("href", url);
     const elDiv = document.createElement("div");
-    elDiv.setAttribute("class", "kartta-item");
+    elDiv.setAttribute("class", "kartta-menu-item");
     elDiv.innerHTML = text;
     elA.appendChild(elDiv);
     elDiv.addEventListener('click', (e) => {
@@ -93,9 +70,9 @@
   }
 
   function createDropDown() {
-    const elDiv = document.createElement("div");
-    elDiv.setAttribute("class", "kartta-app-menu-display-dropdown kartta-app-menu-hidden");
-    elDiv.setAttribute("id", "kartta-app-menu-display-dropdown");
+    const elDiv = createElement("div", {
+      "class": "kartta-app-menu-dropdown",
+    });
     menuItems.forEach(item => {
       elDiv.appendChild(createMenuItem(item.menuText, item.url));
     });
@@ -109,40 +86,41 @@
       return;
     }
 
-    const appMenuDropDown = createDropDown();
-
-    const appMenuDismiss = (e) => {
-      appMenuDropDown.classList.add("kartta-app-menu-hidden");
-      document.removeEventListener('click', appMenuDismiss);
-      e.stopPropagation();
-      e.preventDefault();
-      return false;
-    }
-
-    const a = createElement("a", {
-      "href": "/"
+    const elem = createElement("div", {
+      "class": "kartta-logo-wrapper",
     });
-    const picture = createElement("picture");
-    picture.appendChild(createElement("source", {
-      "srcset": "{{ APP_PREFIX }}/assets/site-logo.png",
-      "type": "image/png"
-    }));
-    picture.appendChild(createElement("img", {
-      "srcset": "{{ APP_PREFIX }}/assets/site-logo.png",
-      "alt": "kartta labs logo",
+    const img = createElement("img", {
       "class": "kartta-app-menu-logo",
-      "src": "{{ APP_PREFIX }}/assets/site-logo.png"
-    }));
-    a.appendChild(picture);
-
-
-    const appMenuWrapper = createElement("div", {
-      "class": "kartta-app-menu-wrapper"
+      "src": currentLogoUrl(),
     });
-    appMenuWrapper.appendChild(a);
-    appMenuWrapper.appendChild(createAppMenu(appMenuDropDown, appMenuDismiss));
+    elem.appendChild(img);
 
-    appMenuPlaceholder.parentNode.insertBefore(appMenuWrapper, appMenuPlaceholder);
+    const menu = createDropDown();
+    const menuPlacer = createElement("div", {
+      "class": "kartta-menu-placer kartta-app-menu-hidden"
+    });
+    menuPlacer.appendChild(menu);
+    elem.appendChild(menuPlacer);
+
+    const fudge = 5;
+    const moveListener = (e) => {
+      rect = menuPlacer.getBoundingClientRect();
+      if ((e.clientX > rect.right + fudge)
+          || (e.clientX < rect.left - fudge)
+          || (e.clientY < rect.top - fudge)
+          || (e.clientY > rect.bottom + fudge)) {
+          menuPlacer.classList.add("kartta-app-menu-hidden");
+          document.removeEventListener('mousemove', moveListener);
+      }
+    };
+
+    img.addEventListener('mouseenter', (e) => {
+      menuPlacer.classList.remove("kartta-app-menu-hidden");
+      document.addEventListener('mousemove', moveListener);
+    });
+
+    //appMenuPlaceholder.parentNode.insertBefore(appMenuWrapper, appMenuPlaceholder);
+    appMenuPlaceholder.parentNode.insertBefore(elem, appMenuPlaceholder);
     appMenuPlaceholder.parentNode.removeChild(appMenuPlaceholder);
   }
 

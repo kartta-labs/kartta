@@ -90,8 +90,9 @@ header .dropdown {
 }
 
 .kartta-header-menu {
-  margin: 0;
+  margin-top: 4px;
   padding: 0;
+  display: inline-block;
 }
 
 .kartta-header-content {
