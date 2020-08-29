@@ -5,6 +5,6 @@ RUN apt-get install -y gettext-base
 
 RUN pip3 install jinja2 pyyaml
 
-COPY . /map
+COPY . /kartta
 
-WORKDIR /map
+WORKDIR /kartta
