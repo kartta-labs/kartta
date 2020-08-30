@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This launch script is only used when running the kartta app by itself
+# from this directory for development purposes (via docker-compose using
+# ./docker-compose.yml); it's not use when running kartta as part of
+# the Kartta Labs suite (https://github.com/kartta-labs/Project).
+
 if [ ! -d /map/build ] ; then
   mkdir /map/build
 fi
