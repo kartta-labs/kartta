@@ -17,12 +17,12 @@
 # ./docker-compose.yml); it's not use when running kartta as part of
 # the Kartta Labs suite (https://github.com/kartta-labs/Project).
 
-if [ ! -d /map/build ] ; then
-  mkdir /map/build
+if [ ! -d /kartta/build ] ; then
+  mkdir /kartta/build
 fi
 
-cd /map
+cd /kartta
 python3 ./build-all.py --watch &
 
-cd /map/build
+cd /kartta/build
 python3 -m http.server
