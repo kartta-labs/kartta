@@ -1,11 +1,15 @@
+# This docker-compose.yml is only used when running the kartta app by itself
+# from this directory for development purposes.  It's not use when running
+# kartta as part of the Kartta Labs suite (https://github.com/kartta-labs/Project).
+
 version: '3.3'
 services:
-  map:
+  kartta:
     build:
       context: .
       dockerfile: Dockerfile
-    entrypoint: ["/bin/bash", "/map/docker-launch.sh"]
+    entrypoint: ["/bin/sh", "/kartta/docker-launch.sh"]
     volumes:
-      - .:/map
+      - .:/kartta
     ports:
       - "8000:8000"

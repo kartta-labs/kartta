@@ -1,0 +1,2 @@
+# force inclusion of 'antique' subdir in cloud builds; this overrides the fact that .gitignore lists it:
+!antique

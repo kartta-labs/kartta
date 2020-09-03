@@ -1,0 +1,167 @@
+{% extends 'templates/site.html' %}
+
+{% set title %}
+  Kartta Labs - FAQ
+{% endset %}
+
+{% block content %}
+  <div class="kartta-content-wrapper">
+
+    <h2>Frequently Asked Questions</h2>
+
+    <p>
+      Your use of {{ SITE_NAME }} is subject to
+      Google's <a href="https://policies.google.com/terms">Terms of
+      Service</a>
+      and <a href="https://policies.google.com/privacy">Privacy
+      Policy</a>. Please read both of those documents to learn
+      more. Some of the most frequently asked questions are answered
+      on this page.
+    </p>
+    <p>
+      {{ SITE_NAME }} relies on crowdsourcing to create a historical
+      map of the world. We have two major web applications to
+      support this process: Warper and Editor. Warper lets you
+      upload scans of historical maps and georectify them by adding
+      control points to the historical map and corresponding points
+      on a contemporary map. The scanned map is then warped so that
+      it aligns well with the underlying contemporary map. Warped
+      maps can then be viewed in the Editor web application, where
+      users can trace map features such as building footprints,
+      roads, etc. and add information (metadata) about each feature
+      such as the number of floors of a building or the name of a
+      road.
+    </p>
+
+
+    <h3>Contributions and Maps</h3>
+
+    <p>
+      <b>Maps:</b> When you upload a map to Warper  you agree that you are lawfully entitled and have full authority to
+      license this website to use the uploaded map and make it publicly available. You can delete your maps at any
+      time. Deleting a map also deletes all its associated Contributions in Warper. Any Contribution made in Editor
+      using the deleted map as a background stays indefinitely in our database and is not meant to be deleted. If
+      you believe someone has uploaded a Map that is not theirs, or that you own the copyright to, you can contact
+      us at <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a> with your concerns.<br>
+    </p>
+    <p>
+      <b>Contributions:</b> You can contribute to this project by adding/deleting/modifying control points of Maps in Warper.
+      A control point associates a point on a Map with its location on a contemporary map. A collection of control
+      points are then used to rectify the Map. You can also quickly and roughly place Maps that are not rectified yet.
+      This will help others to add control points. Finally, you can help us by cropping the Maps. All of these data
+      points are considered your “Contributions” in Warper.
+      You can also contribute by tracing rectified maps from Warper with Editor. To do this you load the rectified
+      map as the background map of Editor and trace the map features (building footprints, roads, etc.) and add metadata
+      (street address, number of floors, start date, etc.). The traced map features and their metadata might be extracted
+      from the historical map or your personal knowledge. You can also delete/modify the map features and metadata
+      created by others. All of these data points are considered your “Contributions” in Editor.
+      When we say Contributions in this document we mean your Contributions in both Warper and Editor, unless otherwise specified.
+    </p>
+
+    <h4>Do I have to make my contributions available for others to use?</h4>
+
+    <p>
+      Yes. All of your Contributions will be made available to others pursuant to an open source license. By agreeing
+      to open source your Contributions, you hereby grant to Google and to recipients of copyrightable material distributed
+      by Google a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce,
+      prepare derivative works of, publicly display, publicly perform, sublicense, and distribute your images. You represent
+      that you are legally entitled to grant this license.
+      <br>
+      If moral rights apply to your Contributions, to the maximum extent permitted by law, you waive and agree not to assert
+      such moral rights against Google or Google’s successors in interest, or any of Google’s licensees, either direct or indirect.
+    </p>
+
+    <h4>Will I get paid for my contributions?</h4>
+
+    <p>
+      No. {{ SITE_NAME }} is a community effort–we rely on the goodwill of community members to help us revive the past and together build
+      a mapping service with a time dimension, such that everybody in the world can benefit.
+    </p>
+
+    <h4>How can I delete the images/maps that I have uploaded?</h4>
+
+    <p>
+      In Warper, go to the Edit tab of the Map you want to delete and click on the “Delete this map” link. This will delete the map
+      from our servers, however, note that maps are publicly available; deleting a map from our servers will not ensure that every
+      copy of it is deleted, since others may have copied or reused the image prior to deletion. If you delete your account, all
+      the maps that you have uploaded are also deleted. This is not reversible.
+    </p>
+
+    <h4>How can I delete my Contributions?</h4>
+
+    <p>
+      Your Contributions are open sourced. You can manually delete your Contributions, but they will still be recorded in the activity
+      tab of the application. For example, if you put control points on a map and later delete them, the activity tab of the map will
+      show the creation and deletion of the control points and will let other users revert your changes. You cannot wipe out your
+      Contributions to the open sourced data of {{ SITE_NAME }}. If you delete your account, your Contributions will be de-identified (that is,
+      they’re no longer associated with your account) but they will not be deleted. It’s important to understand that Google is not able
+      to find, delete, or de-identify any copies of your Contributions that other users may have created while the Contributions were
+      open-sourced, nor is Google able to revoke an open-source license to those Contributions once they’ve been distributed.
+    </p>
+
+    <h4>How do you use my Contributions?</h4>
+
+    <p>
+      The Contributions that you make are stored on our servers and are open sourced such that they are publicly accessible. We may use
+      this information to process other data (e.g., warping a map based on control points) or serve them directly. We may validate your
+      Contributions by automatic or manual processes. Contributions may be used to train computer algorithms and improve Google’s
+      products and services. Note that since your Contributions are open sourced, we have no control on how they will be used by others.
+    </p>
+
+    <h4>Logins</h4>
+
+    <p>
+      You must login to your Google account prior to submitting any Contributions or Maps. This is to aid in the system identifying you
+      correctly. The email address for your account will never be published anywhere or shared with third party organisations. Only
+      administrators have direct access to email address data.
+    </p>
+
+    <h4>Account Removal</h4>
+
+    <p>
+      You can remove your Warper account at any time, by clicking on the "Settings" link. Deleting your account will also delete your
+      uploaded Maps and user profile. But it will not delete your Contributions. Such contributions will be de-identified. To delete your
+      Editor account please email us at re-contact@google.com.
+    </p>
+
+    <h4>Cookies</h4>
+
+    <p>
+      Cookies are very small text files that are stored on your computer when you visit some websites. We use cookies to help keep a
+      track of whether you are logged in and to aid site navigation state. You can disable any cookies already stored on your computer,
+      but these may stop our website from functioning properly. This website will remember that you are logged in and that your session
+      is secure. You need to be logged in to upload maps. You can also disable third party cookies to disable Google Analytics.
+    </p>
+
+    <h4>Google Analytics</h4>
+
+    <p>
+      This system may use Google Analytics so we can get statistics about how users use the website so we can improve it. IP addresses are anonymized.
+    </p>
+
+    <h3>Other uses of your data</h3>
+
+    <h4>IP Addresses</h4>
+    <p>
+      The IP address of each request is stored in the application and web server logs for the purpose of maintentance, security and
+      abuse prevention. These logs are deleted after 30 days.
+    </p>
+
+    <h4>Map metadata</h4>
+    <p>
+      When you upload a map with a title and description, this website sends the image to Google's Cloud Vision API to extract text
+      (OCR) and the OCR text from that with the title and description to Google Maps API for Geocoding . This is to attempt to give
+      a best guess place for your map. For example if you upload an image with the title "Paris, France" it may zoom the map to that
+      location for you
+    </p>
+
+    <h3>Exported Data License</h3>
+    <p>
+      All data exported from {{ SITE_NAME }} is made available under the Open Database License:
+      <a href="http://opendatacommons.org/licenses/odbl/1.0/">http://opendatacommons.org/licenses/odbl/1.0/</a>.
+      Any rights in individual contents of the data are licensed under the Database Contents License:
+      <a href="http://opendatacommons.org/licenses/dbcl/1.0/">http://opendatacommons.org/licenses/dbcl/1.0/</a>.
+    </p>
+
+  </div>
+{% endblock %}

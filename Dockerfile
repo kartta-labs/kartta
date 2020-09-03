@@ -1,15 +1,10 @@
-# docker build -t cgimap:latest -f Dockerfile-cgimap .
+FROM python:3
 
-FROM ubuntu:18.04
+RUN apt-get update
+RUN apt-get install -y gettext-base nginx-full
 
-RUN apt-get update --fix-missing -qq
+RUN pip3 install jinja2 pyyaml
 
-RUN apt-get install -y build-essential git vim emacs curl iputils-ping gettext-base python
+COPY . /kartta
 
-RUN mkdir -p /map
-
-COPY . /map
-
-WORKDIR /map
-
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+WORKDIR /kartta

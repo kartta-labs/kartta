@@ -4,7 +4,7 @@
   "sources": {
     "antique": {
       "type": "vector",
-      "url":"${TILESERVER_ANTIQUE_JSON}"
+      "url":"{{ TILESERVER_ANTIQUE_JSON }}"
     }
   },
   "layers": [

@@ -8,8 +8,23 @@ html,body,ul,ol,li,form,fieldset,legend,h1,h2,h3,h4,h5,h6,p,input {
   margin:0;
 }
 
+footer {
+  flex: 0 1 auto;
+}
+
+footer {
+  border-top: 1px solid black;
+  padding-top: 5px;
+  margin-top: 1px;
+}
+
+content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
 body {
-  overflow: hidden;
+    overflow: hidden;
     display: flex;
     flex-flow: column;
     height: 100%;
@@ -17,22 +32,21 @@ body {
     padding:0;
 }
 
+/*
 .size-to-content {
     flex: 0 1 auto;
-  /* The above is shorthand for:
+
+  The above is shorthand for:
   flex-grow: 0,
   flex-shrink: 1,
   flex-basis: auto
-  */
+
 }
 
 .fill-remaining {
   flex: 1 1 auto;
 }
-
-header {
-  line-height:1.6666;
-}
+*/
 
 h1,h2,h3 {
   font-weight:600;
@@ -55,17 +69,41 @@ a:hover {
 }
 
 header {
+  margin: 0;
+  padding: 0;
+  line-height:1.6666;
   border-bottom:1px solid black;
   height:55px;
-  position:relative;
+/*  position:relative; */
   z-index:1001;
-  font-size:14px
+  font-size:14px;
+  display: flex;
+  flex-flow: row;
 }
 
-header h1,header nav,header nav>ul,header nav>ul>li,header .dropdown {
+header h1,
+header nav,
+header nav>ul,
+header nav>ul>li,
+header .dropdown {
   display:inline-block
 }
 
+.kartta-header-menu {
+  margin-top: 4px;
+  padding: 0;
+  display: inline-block;
+}
+
+.kartta-header-content {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+/*
 header>* {
   height:100%;
   padding:10px
@@ -74,6 +112,7 @@ header>* {
 header h1,header nav.primary {
   float:left
 }
+*/
 
 header a,header a:hover {
   text-decoration:none
@@ -110,4 +149,74 @@ nav.secondary>ul a:hover {
 
 #compact-secondary-nav {
   display:none
+}
+
+/*
+#kartta-footer {
+  flex: 0 1 auto;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 5px;
+  width: 100%;
+}
+*/
+
+.kartta-overlay-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.kartta-footer-inner0 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.kartta-footer-inner1 {
+  background-color: rgba(255,255,255,0.4);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.kartta-footer-item {
+  display: inline-block;
+}
+
+.kartta-footer-separator {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.kartta-content-wrapper {
+  padding: 20px;
+}
+
+.kartta-content-wrapper h2 {
+  margin-bottom: 15px;
+}
+
+.kartta-content-wrapper h3 {
+  margin-bottom: 10px;
+}
+
+.kartta-content-wrapper h4 {
+  margin-bottom: 10px;
+}
+
+.kartta-content-wrapper p {
+  margin-bottom: 10px;
+}
+
+.timeslider-wrapper {
+  padding: 5px;
+}
+
+#timeslider {
+  display: inline-block;
+  height: 55px;
+  width: 100%;
+  margin: 0;
 }

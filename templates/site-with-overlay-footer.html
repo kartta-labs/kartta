@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  {% include "templates/head.html" %}
+  <body>
+{#
+    <header>
+    </header>
+#}
+    {% include "templates/header.html" %}
+    <content>
+      {% block content %}{% endblock %}
+    </content>    
+    <div class="kartta-overlay-footer">
+      {% include "templates/footer.html" %}
+    </div>
+  </body>
+</html>
