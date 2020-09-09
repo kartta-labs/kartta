@@ -220,3 +220,7 @@ nav.secondary>ul a:hover {
   width: 100%;
   margin: 0;
 }
+
+.kartta-cta-element {
+  font-weight: bold;
+}

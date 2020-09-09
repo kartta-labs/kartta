@@ -5,12 +5,69 @@
 {% endset %}
 
 {% block content %}
-  <div class="kartta-content-wrapper">
+<div class="kartta-content-wrapper">
 
-    <h2>Help</h2>
+    <h2>Warper Help</h3>
+
+    <h4>Uploading</h4>
+    <p>
+      To upload a new map to {{ SITE_NAME }} warper, click the <span class="kartta-cta-element">Upload</span> link near the top right corner of the page.
+      Add a title for the map, and give values for as many of the optional fields as possible.
+      Choose a local image file to upload, or give the URL of an image to be imported, and click the <span class="kartta-cta-element">Create</span> button.
+    </p>
 
     <p>
-      lorem ipsum help
+      The map that you upload or import must be a raster image format such as png, tiff, or jpeg. PDFs are not accepted;
+      if you have a map in PDF format, convert it to an image before uploading.
+    </p>
+
+    <h4>Rectifying</h4>
+
+    <p>
+      To georectify an uploaded map, first go to the map's main page by clicking on its title on the home page or on the
+      <span class="kartta-cta-element"><a href="/w/maps">Browse</a></span> page.
+      On the map's main page, click the <span class="kartta-cta-element">Rectify</span> tab and use the two views
+      to place several (at least three, and the more the better) pairs of control points.  When you have finished adding control points, click the
+      'Warp Image' button.
+    </p>
+
+    <p>
+      You can return to the map to add more control points, and/or to edit previously added control points, at any time.  Each time you edit, delete,
+      or add control points, click the 'Warp Image' button to update the map.
+    </p>
+
+
+    <h4>Viewing and Exporting</h4>
+
+    <p>
+      You can view a rectified map by clicking on the <span class="kartta-cta-element">Preview</span> tab on the map's main page.
+    </p>
+
+    <p>
+      The <span class="kartta-cta-element">Export</span> tab on the map's main page has links to let you download the rectified map in various digital formats.
+    </p>
+
+
+    <h4>Deleting a Map</h4>
+
+    <p>
+      To delete a map, use the <span class="kartta-cta-element">Delete this map</span> link
+      at the top of the <span class="kartta-cta-element">Edit</span> tab on the map's main page.
+      Note that all maps in {{ SITE_NAME }}  warper
+      are public; deleting a map will cause it to be deleted from the {{ SITE_NAME }} warper servers and will prevent anyone from downloading the map
+      from that point on, but it will not delete any copies that had previously been downloaded. See the
+      <a href="/faq">FAQ</a> for more information about what data is deleted when you delete a map.
+    </p>
+
+
+    <h2>Deleting Your {{ SITE_NAME }} Account</h2>
+
+    <p>
+      To delete your {{ SITE_NAME }} account, contact us at {{ CONTACT_EMAIL }}.  Note that deleting your {{ SITE_NAME }}
+      account will not delete your Google account -- it just deletes your Google account's association with {{ SITE_NAME }}.
+      This will delete all maps that you have uploaded to {{ SITE_NAME }} warper;  it will not delete contriutions you have
+      made to Editor, but it will dissociate them from your account. See the
+      <a href="/faq">FAQ</a> for more details.
     </p>
 
   </div>
