@@ -1,7 +1,7 @@
 {% extends 'templates/site.html' %}
 
 {% set title %}
-  Kartta Labs - Help
+  {{ SITE_NAME }} - About
 {% endset %}
 
 {% block content %}
@@ -9,9 +9,88 @@
 
     <h2>About {{ SITE_NAME }}</h2>
 
-    <p>
-      lorem ipsum about
-    </p>
+      <p>
+        {{ SITE_NAME }} is an open source and free-to-use suite of tools that lets
+        users create a historical map of the world.  It is based on open source software
+        from <a href="https://openstreeetmap.org">OpenStreetMap</a> and others, and is
+        similar to OpenStreetMap in that it relies on users to contribute and maintain
+        geographic data. {{ SITE_NAME }} is specifically designed to include a time
+        component with all data, so the resulting database represents the state of the world
+        throughout history, rather than at just one particular time such as the present.
+      </p>
+
+      <p>
+        {{ SITE_NAME }} is a community-driven effort.  As users contribute more data, {{ SITE_NAME }}
+        grows to represent more areas of the world and more times throughout history.  The initial
+        release of {{ SITE_NAME }} includes extensive data for several neighborhoods in New York City
+        throughout the 19th and 20th centry.
+      </p>
+
+      <p>
+        {{ SITE_NAME }} is an open source project by Google.  It is not an officially supported Google product.
+        The source code for {{ SITE_NAME }} is available at 
+        <a href="https://github.com/kartta-labs">https://github.com/kartta-labs</a>.
+      </p>
+
+      <p>
+        All data exported from {{ SITE_NAME }} is freely available under
+        the terms of the <a href="http://opendatacommons.org/licenses/odbl/1.0/">ODbL</a>
+        license.  See the <a href="/faq">FAQ</a> for more details.
+      </p>
+
+    <h2>{{ SITE_NAME }} Tools</h2>
+
+      <h3>Warper</h3>
+
+        <p>
+          {{ SITE_NAME }} Warper lets users
+          georectify images of maps.  It is specifically designed for use with
+          scans of old maps that predate the use of computers for cartograpy,
+          or the invention of computers altogether.
+        </p>
+
+        <p>
+          Historical maps often use coordinate systems that
+          are different from the typical ones used in modern digital
+          cartography.  This creates a challenge when trying to import such
+          maps into digital cartography systems -- even after the map has been
+          scanned from its paper form into a digital image, the objects in the
+          image don't usually align correctly with the corresponding features
+          in a digital map without distorting the map image in some way.  The
+          process of distoring the image to cause it to correctly line up with
+          a digital cartographic coordinate system is called "warping". {{ SITE_NAME }} Warper
+          facilitates this warping process: users can upload a map
+          image, place control points to align known location in the image
+          with features in the real world, and then export the warped map in
+          any of several open digital formats which can be used in other
+          mapping applicatiions.
+        </p>
+
+        <p>
+          {{ SITE_NAME }} Warper is based
+          on the open source project
+          <a href="https://github.com/timwaters/mapwarper">https://github.com/timwaters/mapwarper</a>, and contains
+          customizations needed to associate a point in time with each map.  In particular, {{ SITE_NAME }} Warper can support
+          creating time-based map systems that represent the change in geographics features such as buildings, roads, etc over
+          time.  The source code for {{ SITE_NAME }} Warper is available at 
+          <a href="https://github.com/kartta-labs/mapwarper">https://github.com/kartta-labs/mapwarper</a>.
+        </p>
+
+      <h3>Editor</h3>
+        <p>
+          Yada yada...
+        </p>
+
+      <h3>Reservoir</h3>
+        <p>
+          Yada yada...
+        </p>
+
+    <h2>Contact</h2>
+
+      <p>
+        Contact <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a> for more information or issues.
+      </p>
 
   </div>
 {% endblock %}
