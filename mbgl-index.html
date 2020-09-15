@@ -1,0 +1,29 @@
+{% extends 'templates/site-with-overlay-footer.html' %}
+
+{% set title %}
+  Kartta Labs - Home
+{% endset %}
+
+{% set headmatter %}
+  <script src='./mbgl/v1.10.1/mapbox-gl.js'></script>
+  <link href='./mbgl/v1.10.1/mapbox-gl.css' rel='stylesheet' />
+
+  <script src='./mbgl/mapbox-gl-inspect/v1.3.1/mapbox-gl-inspect.js'></script>
+  <link href='./mbgl/mapbox-gl-inspect/v1.3.1/mapbox-gl-inspect.css' rel='stylesheet' />
+
+  <script src='./mbgl-timefilter.js'></script>
+  <script src="./mbgl-map.js"></script>
+  <link rel="stylesheet" type="text/css" href="./mbgl-map.css" />
+{% endset %}
+
+
+{% set headercontent %}
+  <div class='year-filter' id='sliderbar'>
+    <h2>Year: <label id='filter-year-label'>1850</label></h2>
+    <input id='year-slider' class='year-slider' type='range' min='1800' max='1950' step='10' value='1850' />
+  </div>
+{% endset %}
+
+{% block content %}
+<div id='map'></div>
+{% endblock %}
