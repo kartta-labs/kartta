@@ -1,0 +1,90 @@
+/*
+ * Copyright 2020 Google LLC
+ * Copyright 2020 Tim Waters
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#map {
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
+    width:100%;
+    height:100%;
+}
+
+
+#sliderbar {
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+#sliderbar>input {
+  margin-left: 20px;
+}
+
+#sliderbar>* {
+  display: inline-block;
+}
+
+.year-slider {
+  width: 400px;
+}
+
+
+input[type=range] {
+  margin: 10.95px 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 1.3px;
+  width: 100%;
+  height: 14.1px;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  margin-top: -11.15px;
+  width: 16px;
+  height: 36px;
+  background: #3c8845;
+  border: 1px solid #000000;
+  border-radius: 7px;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+input[type=range]::-moz-range-track {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 1.3px;
+  width: 100%;
+  height: 14.1px;
+  cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width: 16px;
+  height: 36px;
+  background: #3c8845;
+  border: 1px solid #000000;
+  border-radius: 7px;
+  cursor: pointer;
+}

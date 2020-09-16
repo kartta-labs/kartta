@@ -15,8 +15,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 
-var antiqueStyleURL = '{{ APP_HOME_URL }}/antique_style.json';
-var xrayStyleURL = '{{ APP_HOME_URL }}/xray_style.json';
+var antiqueStyleURL = '{{ APP_HOME_URL }}/antique_style.old.json';
+var xrayStyleURL = '{{ APP_HOME_URL }}/xray_style.old.json';
 
 var map = new mapboxgl.Map({
     container: 'map', // container id
