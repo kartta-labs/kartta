@@ -13,6 +13,69 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+class ThreeDControl {
+  onAdd(map) {
+    this._map = map;
+    this._container = document.createElement('div');
+    this._container.className = "mapboxgl-ctrl button-3d";
+    this._container.id = "button-3d";
+    this._container.textContent = '3D';
+
+    const message = document.getElementById('map-3d-message-overlay');
+
+    const handle_map_click_enter_3d = (e) => {
+      const lat = e.lngLat.lat;
+      const lon = e.lngLat.lng;
+      const url = new URL(window.location);
+      const year = document.getElementById('year-slider').value;
+      window.location.href = url.origin + "/3d?year=" + year + "&lon=" + lon + "&lat=" + lat;
+    };
+
+    let handle_keypress;
+
+    // When 3D button is clicked:
+    //   1. display the 3D message with cancel button
+    //   2. change map cursor to crosshair
+    //   3. listen for map clicks to switch to 3D
+    //   4. listen for esc key
+    this._container.addEventListener('click', () => {
+      message.classList.remove('kartta-hidden');
+      map._canvas.classList.add('crosshair-cursor');
+      map.on('click', handle_map_click_enter_3d);
+      window.addEventListener('keydown', handle_keypress, false);
+    });
+
+    // To cancel:
+    //   1. hide the 3D message
+    //   2. restore the normal map cursor
+    //   3. stop listening for map clicks
+    //   4. stop listening for esc key
+    const cancel_3d = () => {
+      message.classList.add('kartta-hidden');
+      map._canvas.classList.remove('crosshair-cursor');
+      map.off('click', handle_map_click_enter_3d);
+      window.removeEventListener('keydown', handle_keypress, false);
+    };
+
+    handle_keypress = (e) => {
+      if (e.key == 'Escape') {
+        cancel_3d();
+      }
+    };
+
+    document.getElementById('cancel-3d-button').addEventListener('click', cancel_3d);
+
+    return this._container;
+  }
+
+  onRemove() {
+    this._container.parentNode.removeChild(this._container);
+    this._map = undefined;
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded", function(){
   var styleURL = '{{ APP_HOME_URL }}/mbgl-antique-style.json';
 
@@ -27,12 +90,22 @@ document.addEventListener("DOMContentLoaded", function(){
 
   });
 
-  map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(new mapboxgl.NavigationControl({
+    showCompass: false
+  }));
+
+  map.addControl(new ThreeDControl({
+  }));
 
   var timefilter;
   var layersToFilter = [ "buildings", "building_names","building_names__1", "buildings_outline",  "landuse", "road_names", "minor_roads", "roads_casing_major","roads_casing_mid","roads_casing_major", "roads_centre_major","roads_centre_mid"]
 
-  timefilter = new MbglTimefilter(map, {layers: layersToFilter, showNoDates: true})
+  timefilter = new MbglTimefilter(map, {
+    layers: layersToFilter,
+    showNoDates: true,
+    startProp: 'start_date',
+    endProp: 'end_date'
+  });
 
   // set initial filter once the style is in the map.
   // fired once, hopefully should be after layers etc are loaded in, but may have to use 'idle' event
@@ -53,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById('filter-year-label').innerText = e.target.value;
   });
 
-
   // Get stats events listening.
   map.on('idle', function() {
   //timefilter.getStats('antique','buildings', 1800, 2020)
@@ -63,4 +135,8 @@ document.addEventListener("DOMContentLoaded", function(){
     //  stats = timefilter.getStats('antique','buildings', 1800, 2020)
     }
   });
+
+
+
+
 });

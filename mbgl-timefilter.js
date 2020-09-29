@@ -55,22 +55,31 @@ function MbglTimefilter(map, opts = {}){
     if (this.originalFilters.length == 0){
       this.originalFilters = this._getOriginalFilters();
     }
-
     var date = this._getdate(date_str);
 
-    var filterNoDateProp =  ['all', ["!=", ["typeof", ["get", this.startProp ]], "string"], ["!=", ["typeof", ["get", this.endProp]], "string"] ]  ;
+    //var filterNoDateProp =  ['all', ["!=", ["typeof", ["get", this.startProp ]], "string"], ["!=", ["typeof", ["get", this.endProp]], "string"] ]  ;
+    //var filterStart = ['<=', ['to-number', ['get', this.startProp]], date];
+    //var filterEnd =   ['>=', ['to-number', ['get', this.endProp]], date];
 
-    var filterStart = ['<=', ['to-number', ['get', this.startProp]], date];
-    var filterEnd =   ['>=', ['to-number', ['get', this.endProp]], date];
-    var filterBetweenTime =  ['all', filterStart, filterEnd];
-    
-    var newFilters = []
+    var filterStart = ['any',
+      ['!', ['has', this.startProp]],
+      ['<=', ['get', this.startProp], date_str]
+     ];
+    var filterEnd = ['any',
+      ['!', ['has', this.endProp]],
+      ['>=', ['get', this.endProp], date_str]
+     ];
 
-    if (this.showNoDates) {
-      newFilters = ['any', filterNoDateProp, filterBetweenTime];
-    }else{
-      newFilters = filterBetweenTime;
-    }
+     //var filterBetweenTime =  ['all', filterStart, filterEnd];
+     //var newFilters = []
+
+    var newFilters = ['all', filterStart, filterEnd];
+
+    //if (this.showNoDates) {
+    //  newFilters = ['any', filterNoDateProp, filterBetweenTime];
+    //}else{
+    //  newFilters = filterBetweenTime;
+    //}
   
     for (var i = 0; i < this.layers.length; i++) {
       var originalFilter = this.originalFilters[i];
@@ -106,13 +115,13 @@ function MbglTimefilter(map, opts = {}){
 
   // getStats('antique','buildings', 1800, 2020)
   this.getStats = function(source, layer, minDate, maxDate){
-
     has_start_date = ['has', this.endProp];
     has_end_date = ['has', this.endProp];
 
     var features = this.map.querySourceFeatures(source, {
       sourceLayer: layer,
-      filter: ['all', has_start_date, has_end_date] ,
+//      filter: ['all', has_start_date, has_end_date] ,
+      filter: ['all'],
       validate: false
     });
 
