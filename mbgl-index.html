@@ -25,5 +25,11 @@
 {% endset %}
 
 {% block content %}
-<div id='map'></div>
+<div id="map-wrapper">
+  <div id='map'></div>
+  <div id="map-3d-message-overlay" class="kartta-hidden">
+    Choose a location in the map to switch to 3D view
+    <div id="cancel-3d-button">Cancel</div>
+  </div>
+</div>
 {% endblock %}
