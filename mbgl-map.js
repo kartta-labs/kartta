@@ -15,6 +15,10 @@
 
 
 class ThreeDControl {
+  constructor(options) {
+    this.getYear = options.getYear;
+  }
+
   onAdd(map) {
     this._map = map;
     this._container = document.createElement('div');
@@ -28,7 +32,8 @@ class ThreeDControl {
       const lat = e.lngLat.lat;
       const lon = e.lngLat.lng;
       const url = new URL(window.location);
-      const year = document.getElementById('year-slider').value;
+      //const year = document.getElementById('year-slider').value;
+      const year = this.getYear();
       window.location.href = url.origin + "/3d?year=" + year + "&lon=" + lon + "&lat=" + lat;
     };
 
@@ -94,7 +99,23 @@ document.addEventListener("DOMContentLoaded", function(){
     showCompass: false
   }));
 
+  let currentYear = 1910;
+
+  createKarttaSlider({
+    minValue: 1800,
+    maxValue: 2000,
+    stepSize: 1,
+    value: currentYear,
+    change: (year) => {
+      currentYear = year;
+      timefilter.filter(year);
+    },
+    domElementToReplace: document.getElementById('year-slider-placeholder')
+  });
+
+
   map.addControl(new ThreeDControl({
+    getYear: () => { return currentYear; }
   }));
 
   var timefilter;
@@ -118,14 +139,6 @@ document.addEventListener("DOMContentLoaded", function(){
   //  timefilter.filter(1850)
   });
 
-
-  // listen to the slider changes
-  document.getElementById('year-slider').addEventListener('change', function(e) {
-    var year = e.target.value;
-    timefilter.filter(year);
-    document.getElementById('filter-year-label').innerText = e.target.value;
-  });
-
   // Get stats events listening.
   map.on('idle', function() {
   //timefilter.getStats('antique','buildings', 1800, 2020)
@@ -135,8 +148,5 @@ document.addEventListener("DOMContentLoaded", function(){
     //  stats = timefilter.getStats('antique','buildings', 1800, 2020)
     }
   });
-
-
-
 
 });

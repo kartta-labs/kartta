@@ -93,6 +93,7 @@ header .dropdown {
   margin-top: 4px;
   padding: 0;
   display: inline-block;
+  width: 150px;
 }
 
 .kartta-header-content {
