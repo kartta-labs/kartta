@@ -15,6 +15,10 @@
 
 
 class ThreeDControl {
+  constructor(options) {
+    this.getYear = options.getYear;
+  }
+
   onAdd(map) {
     this._map = map;
     this._container = document.createElement('div');
@@ -28,7 +32,8 @@ class ThreeDControl {
       const lat = e.lngLat.lat;
       const lon = e.lngLat.lng;
       const url = new URL(window.location);
-      const year = document.getElementById('year-slider').value;
+      //const year = document.getElementById('year-slider').value;
+      const year = this.getYear();
       window.location.href = url.origin + "/3d?year=" + year + "&lon=" + lon + "&lat=" + lat;
     };
 
@@ -76,10 +81,39 @@ class ThreeDControl {
 }
 
 
-document.addEventListener("DOMContentLoaded", function(){
-  var styleURL = '{{ APP_HOME_URL }}/mbgl-antique-style.json';
+/**
+ * Updates the current page url without triggering a page reload, and without changing navigation history.
+ * Takes an object containing parameter name,value settings, and affects only those parameter values in the
+ * url -- any parameters present in the url and not present in params are left unchanged.
+ */
+const updatePageUrl = (params) => {
+  const url = new URL(document.location);
+  Object.keys(params).forEach(key => {
+    url.searchParams.set(key, params[key]);
+  });
+  window.history.replaceState(
+      null, '',
+      location.origin + location.pathname + '?' + url.searchParams.toString() + location.hash);
+};
 
-  var map = new mapboxgl.Map({
+document.addEventListener("DOMContentLoaded", function(){
+  const params = (new URL(document.location)).searchParams;
+
+  let currentYear = params.has("year") ? parseInt(params.get("year")) : "1940";
+
+  const styleURL = '{{ APP_HOME_URL }}/mbgl-antique-style.json';
+
+//  const filterStart = ['any',
+//    ['!', ['has', this.startProp]],
+//    ['<=', ['get', this.startProp], currentYear]
+//  ];
+//  const filterEnd = ['any',
+//    ['!', ['has', this.endProp]],
+//    ['>=', ['get', this.endProp], currentYear]
+//  ];
+//  const mapFilters = ['all', filterStart, filterEnd];
+
+  const map = new mapboxgl.Map({
       container: 'map', // container id
       style: styleURL, // stylesheet location
       center: [-73.99,40.74], // starting position [lng, lat]lng: -73.99931073493184, lat: 40.74364982242477
@@ -87,7 +121,6 @@ document.addEventListener("DOMContentLoaded", function(){
       minZoom: 0,
       hash: true,
       fadeDuration: 100 //controls the duration of the fade for text labels and symbols (default 300)
-
   });
 
   map.addControl(new mapboxgl.NavigationControl({
@@ -95,48 +128,67 @@ document.addEventListener("DOMContentLoaded", function(){
   }));
 
   map.addControl(new ThreeDControl({
+    getYear: () => {
+      return currentYear;
+    }
   }));
 
-  var timefilter;
-  var layersToFilter = [ "buildings", "building_names","building_names__1", "buildings_outline",  "landuse", "road_names", "minor_roads", "roads_casing_major","roads_casing_mid","roads_casing_major", "roads_centre_major","roads_centre_mid"]
+  const layersToFilter = [
+      "buildings",
+      "building_names",
+      "building_names__1",
+      "buildings_outline",
+      "landuse",
+      "road_names",
+      "minor_roads",
+      "roads_casing_major",
+      "roads_casing_mid",
+      "roads_casing_major",
+      "roads_centre_major",
+      "roads_centre_mid"
+  ];
 
-  timefilter = new MbglTimefilter(map, {
+  const timefilter = new MbglTimefilter(map, {
     layers: layersToFilter,
     showNoDates: true,
     startProp: 'start_date',
     endProp: 'end_date'
   });
 
+  createKarttaSlider({
+    minValue: 1800,
+    maxValue: 2000,
+    stepSize: 1,
+    value: currentYear,
+    change: (year) => {
+      currentYear = year;
+      timefilter.filter(year);
+      updatePageUrl({year: year});
+    },
+    domElementToReplace: document.getElementById('year-slider-placeholder')
+  });
+
+
   // set initial filter once the style is in the map.
   // fired once, hopefully should be after layers etc are loaded in, but may have to use 'idle' event
   map.once('sourcedata', function(e) {
-    timefilter.filter(1850)
+    timefilter.filter(currentYear);
   });
 
-  // idle is fired after sourcedata, is first fired when everything is initially set up. Might be used instead of sourcedata, but initial idle takes a bit longer. Could be useful if there are multiple vector layers to load.
-  map.once('idle', function() {
-  //  timefilter.filter(1850)
-  });
-
-
-  // listen to the slider changes
-  document.getElementById('year-slider').addEventListener('change', function(e) {
-    var year = e.target.value;
-    timefilter.filter(year);
-    document.getElementById('filter-year-label').innerText = e.target.value;
-  });
-
-  // Get stats events listening.
-  map.on('idle', function() {
-  //timefilter.getStats('antique','buildings', 1800, 2020)
-  });
-  map.on('sourcedata', function(e) {
-    if (e.isSourceLoaded == true) {
-    //  stats = timefilter.getStats('antique','buildings', 1800, 2020)
-    }
-  });
-
-
-
+// // idle is fired after sourcedata, is first fired when everything is initially set up. Might be used instead
+// // of sourcedata, but initial idle takes a bit longer. Could be useful if there are multiple vector layers to load.
+// map.once('idle', function() {
+//   //timefilter.filter(1850)
+// });
+//
+// // Get stats events listening.
+// map.on('idle', function() {
+//   //timefilter.getStats('antique','buildings', 1800, 2020)
+// });
+// map.on('sourcedata', function(e) {
+//   if (e.isSourceLoaded == true) {
+//     //stats = timefilter.getStats('antique','buildings', 1800, 2020)
+//   }
+// });
 
 });
