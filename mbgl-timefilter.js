@@ -51,6 +51,7 @@ function MbglTimefilter(map, opts = {}){
   }
 
   this.filter = function(date_str){
+    date_str = date_str.toString();
     // get the original filters once on first filter. 
     if (this.originalFilters.length == 0){
       this.originalFilters = this._getOriginalFilters();

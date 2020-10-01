@@ -1,0 +1,72 @@
+.kartta-slider-container {
+  margin-top: 10px;
+  margin-left: 20px;
+  display: flex;
+  flex-flow: row;
+  height: 36px;
+}
+
+.kartta-slider-container>.kartta-slider-text {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  height: 36px;
+  line-height: 36px;
+}
+
+.kartta-year-label {
+  margin-left: 5px;
+}
+
+.kartta-slider-container>input {
+  padding-left: 20px;
+  padding-right: 20px;
+  flex: 1 0 auto;
+}
+
+.kartta-slider-container>input[type=range] {
+  margin: 10.95px 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+}
+.kartta-slider-container>input[type=range]:focus {
+  outline: none;
+}
+.kartta-slider-container>input[type=range]::-webkit-slider-runnable-track {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 1.3px;
+  width: 100%;
+  height: 14.1px;
+  cursor: pointer;
+}
+.kartta-slider-container>input[type=range]::-webkit-slider-thumb {
+  margin-top: -11.15px;
+  width: 16px;
+  height: 36px;
+  background: #3c8845;
+  border: 1px solid #000000;
+  border-radius: 7px;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+.kartta-slider-container>input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+.kartta-slider-container>input[type=range]::-moz-range-track {
+  background: #3071a9;
+  border: 0.2px solid #010101;
+  border-radius: 1.3px;
+  width: 100%;
+  height: 14.1px;
+  cursor: pointer;
+}
+.kartta-slider-container>input[type=range]::-moz-range-thumb {
+  width: 16px;
+  height: 36px;
+  background: #3c8845;
+  border: 1px solid #000000;
+  border-radius: 7px;
+  cursor: pointer;
+}
