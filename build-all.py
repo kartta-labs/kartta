@@ -41,7 +41,6 @@ def usage():
 ignore_patterns = [
     "^./.git$",
     "^./antique$",
-    "^./assets$",
     "^./build$",
     "^./templates$",
     "^.*.py$",
@@ -57,7 +56,6 @@ ignore_patterns = [
 # Copy the contents of these directories just once; these are not scanned for
 # changes or recopied, even if --watch is given.
 dirs_to_copy = {
-    "assets": "assets",
     "antique/vector/antique_assets": "antique_assets",
     "antique/third_party/vector/mbgl": "mbgl",
     "antique/third_party/vector/fonts": "fonts"
