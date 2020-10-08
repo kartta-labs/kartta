@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function(){
   }));
 
   const layersToFilter = [
+      "water",
       "buildings",
       "building_names",
       "building_names__1",

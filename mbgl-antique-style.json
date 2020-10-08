@@ -10,17 +10,24 @@
   },
   "layers":[
     {
-      "paint":{"background-pattern":"background"},
+      "paint":{"background-color":"#aecad0"},
       "id":"background",
       "source":"antique",
       "source-layer":"background",
       "type":"background"
     },
     {
-      "paint":{"fill-color":"#aecad0"},
-      "id":"ocean",
+      "paint":{"fill-pattern":"background"},
+      "id":"land",
       "source":"antique",
-      "source-layer":"ocean",
+      "source-layer":"land",
+      "type":"fill"
+    },
+    {
+      "paint":{"fill-color":"#aecad0"},
+      "id":"water",
+      "source":"antique",
+      "source-layer":"water",
       "type":"fill"
     },
     {
