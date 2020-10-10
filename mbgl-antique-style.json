@@ -93,7 +93,7 @@
       "source":"antique",
       "type":"line",
       "filter": ["in", ["get", "type"], ["literal", ["motorway","trunk","primary","secondary"]]],
-      "minzoom":14,
+      "minzoom":13,
       "maxzoom":21
     },
     {
@@ -103,7 +103,7 @@
       "source":"antique",
       "type":"line",
       "filter": [ "match", ["get", "type"], ["trunk","primary","secondary" ],false,true  ],
-      "minzoom":14,
+      "minzoom":13,
       "maxzoom":21
     },
     {
@@ -120,7 +120,7 @@
       "paint":{"fill-opacity":0.7,
         "fill-color": [
           "match",
-          ["get", "type"], 
+          ["get", "type"],
           ["shop","bank","marketplace","gallery","hotel"],
           "#d9cb48",
           ["church","place_of_worship"],
@@ -131,13 +131,12 @@
           "#b7af9c",
           "#d0c0a8"
           ]
-      
       },
       "id":"buildings",
       "source":"antique",
       "source-layer":"buildings",
       "type":"fill",
-      "minzoom":14,
+      "minzoom":15,
       "maxzoom":21
     },
 
@@ -193,7 +192,7 @@
       "source":"antique",
       "source-layer":"road_names",
       "type":"symbol",
-      "minzoom":14,
+      "minzoom":13,
       "maxzoom":21
     },
     {
