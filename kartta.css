@@ -193,6 +193,7 @@ nav.secondary>ul a:hover {
 
 .kartta-content-wrapper {
   padding: 20px;
+  width: 50%;
 }
 
 .kartta-content-wrapper h2 {
