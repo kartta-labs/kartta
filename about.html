@@ -12,13 +12,16 @@
       <p>
         {{ SITE_NAME }} is an open source and free-to-use suite of tools that lets
         users create a historical map of the world.  It is based on open source software
-        from <a href="https://openstreeetmap.org">OpenStreetMap</a> and others, and is
+        from <a href="https://openstreeetmap.org">OpenStreetMap</a> and other projects, and is
         similar to OpenStreetMap in that it relies on users to contribute and maintain
         geographic data. {{ SITE_NAME }} is specifically designed to include a time
         component with all data, so the resulting database represents the state of the world
         throughout history, rather than at just one particular time such as the present.
       </p>
-
+      <p>
+        Read more about system architecture and design in our HICSS-54 paper 
+        <a href="">"Kartta Labs: Collaborative Time Travel"</a>.
+      </p>
       <p>
         {{ SITE_NAME }} is a community-driven effort.  As users contribute more data, {{ SITE_NAME }}
         grows to represent more areas of the world and more times throughout history.  The initial
@@ -38,7 +41,7 @@
         license.  See the <a href="/faq">FAQ</a> for more details.
       </p>
 
-    <h2>{{ SITE_NAME }} Tools</h2>
+    <h2>{{ SITE_NAME }} main components</h2>
 
       <h3>Warper</h3>
 
@@ -77,22 +80,30 @@
 
       <h3>Editor</h3>
         <p>
-          Yada yada...
+          Editor, based on <a href="https://github.com/openstreetmap/iD">iD editor</a> is a manual 
+          metadata entry and editing tool, allowing users trace building footprints, uplaod and annotate 
+          images showing historic buildings.
         </p>
 
       <h3>Reservoir</h3>
         <p>
-          Yada yada...
+          Reservoir, based on <a href="https://gitlab.com/n42k/3dmr">3dmr</a>, is a repository for 3D models and
+          corresponding metadata. Reservoir expands on 3dmr by adding REST API endpoints for batch uploads and
+          inspection while retaining the ability to upload and preview 3D models through a UI. The
+          source code for Reservoir is available at
+          <a href="https://github.com/kartta-labs/reservoir">https://github.com/kartta-labs/reservoir</a>.
         </p>
 
-      <h3>Attributions</h3>
-        <p>
-          Please see <a href="/attributions">attributions page</a> for list of code and data components used to build this site.
-        <p>
+    <h2><a href="/attributions">Attributions<a></h2>
+    
+    <h2><a href="/copyright">Copyright</a>
+
     <h2>Contact</h2>
 
       <p>
-        Contact <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a> for more information or issues.
+        Contact <a href="mailto:{{ CONTACT_EMAIL }}">{{ CONTACT_EMAIL }}</a> for more information.<br>
+        If you encounter a problem, or have a feature, improvement suggestion, please feel free to 
+        create an issue in our <a href="https://github.com/kartta-labs/Project">Github project</a>.
       </p>
 
   </div>

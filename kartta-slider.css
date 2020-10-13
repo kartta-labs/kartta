@@ -34,7 +34,7 @@
   outline: none;
 }
 .kartta-slider-container>input[type=range]::-webkit-slider-runnable-track {
-  background: #3071a9;
+  background: #aaaaaa;
   border: 0.2px solid #010101;
   border-radius: 1.3px;
   width: 100%;
@@ -45,17 +45,17 @@
   margin-top: -11.15px;
   width: 16px;
   height: 36px;
-  background: #3c8845;
+  background: #777777;
   border: 1px solid #000000;
   border-radius: 7px;
   cursor: pointer;
   -webkit-appearance: none;
 }
 .kartta-slider-container>input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #367ebd;
+  background: #aaaaaa;
 }
 .kartta-slider-container>input[type=range]::-moz-range-track {
-  background: #3071a9;
+  background: #aaaaaa;
   border: 0.2px solid #010101;
   border-radius: 1.3px;
   width: 100%;
@@ -65,7 +65,7 @@
 .kartta-slider-container>input[type=range]::-moz-range-thumb {
   width: 16px;
   height: 36px;
-  background: #3c8845;
+  background: #777777;
   border: 1px solid #000000;
   border-radius: 7px;
   cursor: pointer;
