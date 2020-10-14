@@ -156,3 +156,82 @@ canvas.mapboxgl-canvas.crosshair-cursor {
 #cancel-3d-button:hover {
   background-color: #eeeeee;
 }
+
+#sidebar {
+  position: absolute;
+  width: 350px;
+  top: 0;
+  left: 0;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+}
+
+#search-box {
+  padding-top: 8px;
+  background-color: #eeeeee;
+  padding-bottom: 8px;
+}
+
+#search-query-text {
+  border: 1px solid #ccc;
+  width: 280px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+#search-button {
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  background-color: #ed220d;
+  color: white;
+  line-height: 30px;
+  padding-left: 8px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+#search-button:hover {
+  background-color: #8c1408;
+  color: #dddddd;
+}
+
+#search-results {
+  position: relative;
+  border-top: 1px solid black;
+}
+
+#search-results-close-button-wrapper {
+  position: relative;
+  width: 100%;
+  height: 25px;
+}
+
+#search-results-close-button {
+  position: absolute;
+  right: 0px;
+  display: inline-block;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin: 0;
+  font-size: 24px;
+}
+
+#search-results-close-button:hover {
+  opacity: 0.3;
+  cursor: pointer;
+}
+
+#search-results-results {
+  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+
+#search-results-results ul {
+  padding-inline-start: 25px;
+}
+
+#search-results-loading {
+  margin-left: 10px;
+}
