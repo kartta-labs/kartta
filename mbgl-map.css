@@ -17,7 +17,7 @@
 
 #map {
   overflow: hidden;
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
     width:100%;
@@ -110,7 +110,7 @@ canvas.mapboxgl-canvas.crosshair-cursor {
 
 
 #map-wrapper {
-  position: relative;
+  position: absolute;
   margin: 0;
   padding: 0;
   width: 100%;
