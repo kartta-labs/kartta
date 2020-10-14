@@ -120,7 +120,8 @@ document.addEventListener("DOMContentLoaded", function(){
       zoom: 14,
       minZoom: 0,
       hash: true,
-      fadeDuration: 100 //controls the duration of the fade for text labels and symbols (default 300)
+      fadeDuration,: 100 //controls the duration of the fade for text labels and symbols (default 300)
+      attributionControl: false
   });
 
   map.addControl(new mapboxgl.NavigationControl({
