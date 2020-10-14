@@ -235,3 +235,14 @@ canvas.mapboxgl-canvas.crosshair-cursor {
 #search-results-loading {
   margin-left: 10px;
 }
+
+#kartta-attribution {
+  z-index: 100001;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 3px;
+  background: rgba(255,255,255,0.3);
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
