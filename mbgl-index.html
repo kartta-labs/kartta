@@ -26,6 +26,26 @@
 {% block content %}
 <div id="map-wrapper">
   <div id='map'></div>
+
+<div id="sidebar">
+  <div id="search-box">
+    <input type="text" name="query" id="search-query-text" maxlength="50" placeholder="Search" autofocus="autofocus">
+    <div id="search-button">Go</div>
+  </div>
+
+  <div id="search-results" class="kartta-hidden">
+    <div id="search-results-close-button-wrapper">
+      <div id="search-results-close-button">&times;</div>
+    </div>  
+    <div id="search-results-results">
+      <div id="search-results-loading">Loading...</div>
+      <ul id="search-results-list">
+      </ul>
+    </div>
+  </div>
+</div>
+
+
   <div id="map-3d-message-overlay" class="kartta-hidden">
     Choose a location in the map to switch to 3D view.  Then use mouse and W, A, S, D keys to move.
     <div id="cancel-3d-button">Cancel</div>
