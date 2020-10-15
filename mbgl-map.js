@@ -120,7 +120,8 @@ document.addEventListener("DOMContentLoaded", function(){
       zoom: 14,
       minZoom: 0,
       hash: true,
-      fadeDuration: 100 //controls the duration of the fade for text labels and symbols (default 300)
+      fadeDuration: 100, //controls the duration of the fade for text labels and symbols (default 300)
+      attributionControl: false
   });
 
   map.addControl(new mapboxgl.NavigationControl({
@@ -176,20 +177,95 @@ document.addEventListener("DOMContentLoaded", function(){
     timefilter.filter(currentYear);
   });
 
-// // idle is fired after sourcedata, is first fired when everything is initially set up. Might be used instead
-// // of sourcedata, but initial idle takes a bit longer. Could be useful if there are multiple vector layers to load.
-// map.once('idle', function() {
-//   //timefilter.filter(1850)
-// });
-//
-// // Get stats events listening.
-// map.on('idle', function() {
-//   //timefilter.getStats('antique','buildings', 1800, 2020)
-// });
-// map.on('sourcedata', function(e) {
-//   if (e.isSourceLoaded == true) {
-//     //stats = timefilter.getStats('antique','buildings', 1800, 2020)
-//   }
-// });
+  searchButton = document.getElementById("search-button");
+  searchQueryText = document.getElementById("search-query-text");
+
+  searchButton.addEventListener("click", (e) => {
+    DoSearch();
+  });
+  searchQueryText.addEventListener("keydown", (e) => {
+    if (e.key == "Enter") {
+      DoSearch();
+    }
+  });
+
+  searchResults = document.getElementById("search-results");
+  searchResultsList = document.getElementById("search-results-list");
+  searchResultsCloseButton = document.getElementById("search-results-close-button");
+  searchResultsLoading = document.getElementById("search-results-loading");
+
+  function hideSearchResults() {
+    searchResults.classList.add('kartta-hidden');
+  }
+
+  searchResultsCloseButton.addEventListener("click", hideSearchResults);
+
+  function searchResultsItem(text, url) {
+     const li = document.createElement("li");
+     if (url) {
+       const a = document.createElement("a");
+       a.setAttribute("href", url);
+       a.innerHTML = text;
+       a.addEventListener("click", hideSearchResults);
+       li.appendChild(a);
+     } else {
+       li.innerHTML = text;
+     }
+     return li;
+  }
+
+  function BBoxToZoomLevel(bbox) {
+    //   for now always use 13.5
+    return 13.5;
+  }
+
+  function searchResultsURL(item) {
+    return "/#" + BBoxToZoomLevel(item) + "/" + item.lat + "/" + item.lon;
+  }
+
+
+  function DoSearch() {
+    const query = searchQueryText.value;
+    const sanitizedQuery = sanitizeString(query);
+    const encodedSanitizedQuery = encodeURI(sanitizedQuery);
+    const bounds = map.getBounds();
+    const viewbox = [bounds.getWest(),bounds.getSouth(),bounds.getEast(),bounds.getNorth()].join(',');
+    const url = 'https://nomina.re.city/search?format=json&extratags=1'
+              + '&q=' + encodedSanitizedQuery
+              + '&viewbox=' + viewbox
+              + '&accept-language=en-US,en';
+    searchResults.classList.remove('kartta-hidden');
+    searchResultsLoading.classList.remove("kartta-hidden");
+    while (searchResultsList.firstChild) {
+      searchResultsList.removeChild(searchResultsList.firstChild);
+    }
+
+    fetch(url)
+    .then(response => {
+      if (response.status === 200 || response.status === 0) {
+        return Promise.resolve(response.json());
+      } else {
+        return Promise.reject(new Error(response.statusText));
+      }
+    })
+    .then(data => {
+      searchResultsLoading.classList.add("kartta-hidden");
+      if (data.length == 0) {
+        searchResultsList.appendChild(searchResultsItem("No results found."));
+      }
+      data.forEach(item => {
+        searchResultsList.appendChild(searchResultsItem(item.display_name, searchResultsURL(item)));
+      });
+    })
+    .catch(e => {
+      console.log(e);
+    });
+
+  }
+
+  function sanitizeString(str){
+    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
+    return str.trim();
+  }
 
 });
