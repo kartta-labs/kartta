@@ -99,7 +99,7 @@ const updatePageUrl = (params) => {
 document.addEventListener("DOMContentLoaded", function(){
   const params = (new URL(document.location)).searchParams;
 
-  let currentYear = params.has("year") ? parseInt(params.get("year")) : "1940";
+  let currentYear = params.has("year") ? parseInt(params.get("year")) : "{{ INITIAL_YEAR }}";
 
   const styleURL = '{{ APP_HOME_URL }}/mbgl-antique-style.json';
 
@@ -116,8 +116,8 @@ document.addEventListener("DOMContentLoaded", function(){
   const map = new mapboxgl.Map({
       container: 'map', // container id
       style: styleURL, // stylesheet location
-      center: [-73.99,40.74], // starting position [lng, lat]lng: -73.99931073493184, lat: 40.74364982242477
-      zoom: 14,
+      center: [{{ INITIAL_LON }}, {{ INITIAL_LAT }}],
+      zoom: {{ INITIAL_ZOOM }},
       minZoom: 0,
       hash: true,
       fadeDuration: 100, //controls the duration of the fade for text labels and symbols (default 300)
