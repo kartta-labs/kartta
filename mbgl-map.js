@@ -225,13 +225,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
   function DoSearch() {
-    const query = searchQueryText.value;
-    const sanitizedQuery = sanitizeString(query);
-    const encodedSanitizedQuery = encodeURI(sanitizedQuery);
+    const query = searchQueryText.value.trim();
+    const encodedQuery = encodeURIComponent(query);
     const bounds = map.getBounds();
     const viewbox = [bounds.getWest(),bounds.getSouth(),bounds.getEast(),bounds.getNorth()].join(',');
     const url = 'https://nomina.re.city/search?format=json&extratags=1'
-              + '&q=' + encodedSanitizedQuery
+              + '&q=' + encodedQuery
               + '&viewbox=' + viewbox
               + '&accept-language=en-US,en';
     searchResults.classList.remove('kartta-hidden');
@@ -262,10 +261,4 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
   }
-
-  function sanitizeString(str){
-    str = str.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
-    return str.trim();
-  }
-
 });
