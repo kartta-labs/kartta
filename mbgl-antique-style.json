@@ -45,6 +45,13 @@
       "type":"line"
     },
     {
+      "paint":{"fill-color":"#aeada9",  "fill-opacity":{"stops":[[2,0.6],[9,0.1]]}},
+      "id":"urban_areas",
+      "source":"antique",
+      "source-layer":"urban_areas",
+      "type":"fill"
+    },
+    {
       "paint":{"line-color":"#aeada9","line-width":{"stops":[[14,1],[21,3]]}},
       "id":"state_lines",
       "source":"antique",
@@ -87,7 +94,29 @@
       "maxzoom":20
     },
     {
-      "paint":{"line-color":"#444444","line-width":{"stops":[[14,6],[19,29]]}},
+      "paint":{"line-color":"#8f9998","line-width":{"stops":[[10,1],[13,3]]}},
+      "source-layer":"roads",
+      "id":"major_roads_line",
+      "source":"antique",
+      "type":"line",
+      "filter": ["in", ["get", "type"], ["literal", ["motorway","trunk","primary","secondary"]]],
+      "minzoom":10,
+      "maxzoom":13
+    },
+    {
+      "paint":{"line-color":"#8f9998","line-width":1},
+      "source-layer":"roads",
+      "id":"mid_roads_line",
+      "source":"antique",
+      "type":"line",
+      "filter": [ "match", ["get", "type"], ["trunk","primary","secondary" ],false,true  ],
+      "minzoom":10,
+      "maxzoom":13
+    },
+
+
+    {
+      "paint":{"line-color":"#444444","line-width":{"stops":[[14,8],[19,29]]}},
       "source-layer":"roads",
       "id":"roads_casing_major",
       "source":"antique",

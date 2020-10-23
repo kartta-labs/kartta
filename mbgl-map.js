@@ -143,6 +143,8 @@ document.addEventListener("DOMContentLoaded", function(){
       "landuse",
       "road_names",
       "minor_roads",
+      "major_roads_line",
+      "mid_roads_line",
       "roads_casing_major",
       "roads_casing_mid",
       "roads_casing_major",
