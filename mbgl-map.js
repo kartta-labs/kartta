@@ -214,13 +214,20 @@ document.addEventListener("DOMContentLoaded", function(){
      return li;
   }
 
-  function BBoxToZoomLevel(bbox) {
-    //   for now always use 13.5
-    return 13.5;
+  // This picks the largest zoom level for which one tile fits within the lon range of the bbox.
+  // Note: for zoom level z, one tile has width 260/2^z degrees.
+  // A better implementation would also look at the latitude range.
+  function zoomLevelForSearchResultsItem(item) {
+    if (!('boundingbox' in item)) {
+      return 13.5;
+    }
+    const lon1 = item['boundingbox'][2];
+    const lon2 = item['boundingbox'][3];
+    return 1 + Math.floor(Math.log(360/Math.abs(lon1 - lon2)) / Math.log(2));
   }
 
   function searchResultsURL(item) {
-    return "/#" + BBoxToZoomLevel(item) + "/" + item.lat + "/" + item.lon;
+    return "/#" + zoomLevelForSearchResultsItem(item) + "/" + item.lat + "/" + item.lon;
   }
 
 
