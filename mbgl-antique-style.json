@@ -124,7 +124,7 @@
       "source-layer":"major_roads",
       "type":"line",
       "filter": ["in", ["get", "type"], ["literal", ["motorway","trunk","primary","secondary"]]],
-      "minzoom":7,
+      "minzoom":8,
       "maxzoom":13
     },
     {
