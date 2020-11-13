@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   function searchResultsURL(item) {
-    return "/#" + zoomLevelForSearchResultsItem(item) + "/" + item.lat + "/" + item.lon;
+    return "/?year=" + currentYear + "#" + zoomLevelForSearchResultsItem(item) + "/" + item.lat + "/" + item.lon;
   }
 
 
