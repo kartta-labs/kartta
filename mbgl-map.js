@@ -113,6 +113,8 @@ document.addEventListener("DOMContentLoaded", function(){
 //  ];
 //  const mapFilters = ['all', filterStart, filterEnd];
 
+  mapboxgl.setRTLTextPlugin('./mbgl/mapbox-gl-rtl-text/mapbox-gl-rtl-text.min.js');
+
   const map = new mapboxgl.Map({
       container: 'map', // container id
       style: styleURL, // stylesheet location
