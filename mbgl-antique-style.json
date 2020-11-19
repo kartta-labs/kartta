@@ -194,7 +194,7 @@
     },
     {
       "layout":{
-        "text-font":["PT Sans Regular"],
+        "text-font":["Noto Sans Regular"],
         "symbol-placement":"line-center",
         "text-field":"{name}",
 
@@ -202,7 +202,7 @@
         "text-letter-spacing":0.2,
         "text-offset":[0,0],
         "text-keep-upright":true,
-        "text-size":{"stops":[[14,10],[19,22]]}
+        "text-size":{"stops":[[14,5],[19,22]]}
       },
       "paint":{"text-color":"#444444","text-halo-color":"#e8e0c8","text-halo-width":2},
       "id":"road_names",
