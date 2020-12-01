@@ -108,6 +108,24 @@ canvas.mapboxgl-canvas.crosshair-cursor {
   cursor: crosshair !important;
 }
 
+.button-photo {
+  border: 1px solid #aaa;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.button-photo-active {
+  background-color: grey;
+}
+
+.button-photo:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+
 
 #map-wrapper {
   position: absolute;
@@ -159,12 +177,18 @@ canvas.mapboxgl-canvas.crosshair-cursor {
 
 #sidebar {
   position: absolute;
-  width: 350px;
+  width: 370px;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: #eeeeee;
   padding: 0;
   margin: 0;
+}
+
+#map-wrapper.sidebar-open #sidebar {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
 }
 
 #search-box {
@@ -236,6 +260,21 @@ canvas.mapboxgl-canvas.crosshair-cursor {
   margin-left: 10px;
 }
 
+#search-results .photodiv {
+  margin-bottom: 1em;
+}
+
+#search-results .helpdiv {
+  margin-bottom: 100px;
+}
+#search-results .helpdiv p {
+  padding-top: 10px;
+}
+
+#search-results img {
+  border-radius: 10px;
+}
+
 #kartta-attribution {
   z-index: 100001;
   position: absolute;
@@ -245,4 +284,9 @@ canvas.mapboxgl-canvas.crosshair-cursor {
   background: rgba(255,255,255,0.3);
   margin-right: 5px;
   margin-bottom: 5px;
+}
+
+#search-results-results ul.unstyled {
+  list-style: none;
+  padding-inline-start: 0px ;
 }
