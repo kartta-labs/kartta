@@ -34,10 +34,14 @@ class PhotoMapControl {
      // console.log('Click ',e.features[0].id, e.features[0], e.features[0].properties);
       this.searchResultsList.textContent = "";
       this.searchResultsList.appendChild(buildingItem(e.features[0]));
-
+      const footprintId = map.getFeatureState({
+        source: 'antique',
+        sourceLayer: this.layer,
+        id: e.features[0].id
+        }).footprint;
       // check to see if the building has a photo associated with it
-      if (this.anno_ids.indexOf(e.features[0].id) != -1 && getPhotos(e.features[0].id).length > 0) {
-        this.searchResultsList.appendChild(photoItem(e.features[0].id));
+      if (this.anno_ids.indexOf(footprintId) != -1 && getPhotos(footprintId).length > 0) {
+        this.searchResultsList.appendChild(photoItem(footprintId));
       }else {
         const helpDiv = document.createElement("div");
         helpDiv.classList.add("photodiv")
@@ -60,7 +64,7 @@ class PhotoMapControl {
       const commonP = document.createElement("p")
       commonP.textContent = "Do you have a photo for this feature? You can upload photos and annotate this building in the editor. "
       commonP.appendChild(document.createElement("br"));
-      const url = this.editorUrl+"/edit?way="+e.features[0].id;
+      const url = this.editorUrl+"/edit?way="+footprintId;
       const a = document.createElement("a");
       a.setAttribute("href", url);
       a.setAttribute("target", "new");
@@ -73,7 +77,7 @@ class PhotoMapControl {
       const commonP2 = document.createElement("p")
       commonP2.textContent = "You can edit the annotation and facade directly in the Noter."
       commonP2.appendChild(document.createElement("br"));
-      const url2 = this.noterUrl+"/?query="+e.features[0].id;
+      const url2 = this.noterUrl+"/?query="+footprintId;
       const a2 = document.createElement("a");
       a2.setAttribute("href", url2);
       a2.setAttribute("target", "new");
@@ -95,11 +99,15 @@ class PhotoMapControl {
       const buildingDiv = document.createElement("div");
       buildingDiv.classList.add("photodiv")
       const header = document.createElement("h3");
-      
+      const footprintId = map.getFeatureState({
+        source: 'antique',
+        sourceLayer: this.layer,
+        id: feature.id
+        }).footprint;
       if (feature.properties.name) {
         header.textContent = "Building: " + feature.properties.name;
       }else{
-        header.textContent = "Unnamed Building: "+ feature.id;
+        header.textContent = "Unnamed Building: "+ footprintId;
       }
       buildingDiv.appendChild(header);
       const ul = document.createElement("ul");
@@ -191,6 +199,9 @@ class PhotoMapControl {
       }).then(result => {
         this.annotations = photoAnnotations(result);
         this.anno_ids = idsFromAnnotations(this.annotations)
+
+        updateFeatureState(getMultipolygons(result));
+        
         showPhotoStyle();    
         this.browseBounds = bounds;  
 
@@ -261,9 +272,9 @@ class PhotoMapControl {
     const showPhotoStyle = () => {
       // highlight the building lines
       if (this.anno_ids.length > 0){
-        map.setPaintProperty(this.outlineLayer, 'line-color',   ['match', ['id'], [...this.anno_ids], '#de683d', '#aaaaaa'  ]); 
-        map.setPaintProperty(this.outlineLayer, 'line-width',    ['match', ['id'], [...this.anno_ids], 4.5 , 1.5] ); 
-        map.setPaintProperty(this.outlineLayer, 'line-opacity',   ['match', ['id'], [...this.anno_ids], 1 , 0.5 ]);  
+        map.setPaintProperty(this.outlineLayer, 'line-color',   ['match', ['feature-state','footprint'], [...this.anno_ids], '#de683d', '#aaaaaa'  ]); 
+        map.setPaintProperty(this.outlineLayer, 'line-width',   ['match', ['feature-state','footprint'], [...this.anno_ids], 4.5 , 1.5] ); 
+        map.setPaintProperty(this.outlineLayer, 'line-opacity', ['match', ['feature-state','footprint'], [...this.anno_ids], 1 , 0.5 ]);  
       }
 
     }
@@ -328,6 +339,87 @@ class PhotoMapControl {
       return annotations;
     };
 
+    const getMultipolygons = (json) => {
+      const elements = {
+        'node': {},
+        'way': {},
+        'relation': {}
+      };
+      json.elements.forEach(element => {
+        elements[element.type][element.id] = element;
+      });
+      const multi = {}
+      json.elements.forEach(element => {
+        if (element.type == 'relation' && 'building' in element.tags ){
+          if (element.tags.type && element.members && element.tags.type == 'multipolygon'){
+            const outer = element.members.filter(member => member.role == 'outer')[0]
+            multi[element.id] = elements['way'][outer.ref]
+          }
+        }
+      });
+      
+      return {'elements':elements, 'multi': multi};
+    }
+
+    // updates the feature state of all buildings with their id, an updates those buildings which are multi polygons with the outer relation id
+    const updateFeatureState = (elements_and_multi) => {
+      const elements = elements_and_multi.elements
+      const multi = elements_and_multi.multi
+
+      //add footprint feature state to all buildings
+      const allfeatures = map.querySourceFeatures('antique', {sourceLayer: this.layer });
+      allfeatures.forEach(feat => {
+        map.setFeatureState({
+          source: 'antique',
+          sourceLayer: this.layer,
+          id: feat.id
+          }, {"footprint": feat.id}
+        );
+      })
+    
+      const node_keys = Object.keys(elements.node)
+    
+      for (let [key, outer] of Object.entries(multi)) {
+        //console.log("outer",outer)
+        let way_nodes = [];
+        for (let a = 0; a<outer.nodes.length; a++){
+          if (node_keys.indexOf(outer.nodes[a].toString()) > -1){
+            const matchingid = outer.nodes[a];
+            way_nodes.push(elements.node[matchingid]);
+          }
+        }
+      
+        //  Query the map for the building features, and set the footprint id as the outer way id.
+  
+        const centerPoint = calcCenter(way_nodes)
+        const center = map.project(centerPoint)
+        const intersects = map.queryRenderedFeatures(center, { layers: [this.layer] });
+
+        if (intersects.length> 0) {
+          intersects.forEach(feat => {
+            map.setFeatureState({
+              source: 'antique',
+              sourceLayer: this.layer,
+              id: feat.id
+              }, {"footprint": outer.id}
+            );
+          })
+        }
+      }
+    }
+
+    // helper function to simply calcuate the center of a way
+    var calcCenter = function (way_nodes) {
+        var minX, maxX, minY, maxY;
+        for (var i = 0; i < way_nodes.length; i++)
+        {
+            minX = (way_nodes[i].lon < minX || minX == null) ? way_nodes[i].lon : minX;
+            maxX = (way_nodes[i].lon > maxX || maxX == null) ? way_nodes[i].lon : maxX;
+            minY = (way_nodes[i].lat < minY || minY == null) ? way_nodes[i].lat : minY;
+            maxY = (way_nodes[i].lat > maxY || maxY == null) ? way_nodes[i].lat : maxY;
+        }
+        return [(minX + maxX) / 2, (minY + maxY) / 2];
+    }
 
     const idsFromAnnotations = (annotations) => {
       let ids = []
