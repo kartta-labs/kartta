@@ -62,7 +62,7 @@ class PhotoMapControl {
 
       //editor link
       const commonP = document.createElement("p")
-      commonP.textContent = "Do you have a photo for this feature? You can upload photos and annotate this building in the editor. "
+      commonP.textContent = "Do you have a photo for this feature? Want to make a correction to the shape and/or data associated with it?  You can upload photos and enter/edit the feature's data in the editor.";
       commonP.appendChild(document.createElement("br"));
       const url = this.editorUrl+"/edit?way="+footprintId;
       const a = document.createElement("a");
@@ -73,18 +73,17 @@ class PhotoMapControl {
 
       commonDiv.appendChild(commonP);
 
-      //noter link
-      const commonP2 = document.createElement("p")
-      commonP2.textContent = "You can edit the annotation and facade directly in the Noter."
-      commonP2.appendChild(document.createElement("br"));
-      const url2 = this.noterUrl+"/?query="+footprintId;
-      const a2 = document.createElement("a");
-      a2.setAttribute("href", url2);
-      a2.setAttribute("target", "new");
-      a2.textContent = "Open Noter for this feature";
-      commonP2.appendChild(a2);
-
-      commonDiv.appendChild(commonP2);
+      ////noter link
+      //const commonP2 = document.createElement("p")
+      //commonP2.textContent = "You can edit the annotation and facade directly in the Noter."
+      //commonP2.appendChild(document.createElement("br"));
+      //const url2 = this.noterUrl+"/?query="+footprintId;
+      //const a2 = document.createElement("a");
+      //a2.setAttribute("href", url2);
+      //a2.setAttribute("target", "new");
+      //a2.textContent = "Open Noter for this feature";
+      //commonP2.appendChild(a2);
+      //commonDiv.appendChild(commonP2);
 
       this.searchResultsList.appendChild(commonDiv);
       // append the common links
