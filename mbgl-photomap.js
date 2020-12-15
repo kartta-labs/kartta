@@ -183,7 +183,7 @@ class PhotoMapControl {
      if (this.browseBounds && (this.browseBounds.contains(bounds._sw) && this.browseBounds.contains(bounds._ne) )){
        return;
      }
-     if (map.getZoom() < map.getLayer(this.layer).minzoom ){
+     if (map.getZoom() < 17 /*map.getLayer(this.layer).minzoom*/){
       return;
      }
 
