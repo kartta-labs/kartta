@@ -139,9 +139,9 @@ document.addEventListener("DOMContentLoaded", function(){
   map.addControl(new PhotoMapControl({
     layer: "buildings",
     outlineLayer: "buildings_outline",
-    editorUrl:   "https://re.city/e",
-    noterUrl: "https://re.city/nf",
-    noterApiUrl: "https://re.city/nb"
+    editorUrl: "{{ EDITOR_URL }}",
+    noterUrl: "{{ NOTER_URL }}",
+    noterApiUrl: "{{ NOTER_API_URL }}"
   }));
 
 
