@@ -20,7 +20,7 @@ class PhotoMapControl {
     this._container = document.createElement('div');
     this._container.className = "mapboxgl-ctrl button-photo";
     this._container.id = "button-photo";
-    this._container.textContent = 'PH';
+    this._container.textContent = 'i';
     this.sideBarContainer =  document.getElementById("map-wrapper");
     this.searchResults = document.getElementById("search-results");
     this.searchResultsList = document.getElementById("search-results-list");
