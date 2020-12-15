@@ -136,6 +136,15 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   }));
 
+  map.addControl(new PhotoMapControl({
+    layer: "buildings",
+    outlineLayer: "buildings_outline",
+    editorUrl:   "https://re.city/e",
+    noterUrl: "https://re.city/nf",
+    noterApiUrl: "https://re.city/nb"
+  }));
+
+
   const layersToFilter = [
       "water",
       "buildings",
@@ -195,9 +204,11 @@ document.addEventListener("DOMContentLoaded", function(){
   searchResultsList = document.getElementById("search-results-list");
   searchResultsCloseButton = document.getElementById("search-results-close-button");
   searchResultsLoading = document.getElementById("search-results-loading");
+  sideBarContainer = document.getElementById("map-wrapper");
 
   function hideSearchResults() {
     searchResults.classList.add('kartta-hidden');
+    sideBarContainer.classList.remove("sidebar-open");
   }
 
   searchResultsCloseButton.addEventListener("click", hideSearchResults);
@@ -244,6 +255,7 @@ document.addEventListener("DOMContentLoaded", function(){
               + '&accept-language=en-US,en';
     searchResults.classList.remove('kartta-hidden');
     searchResultsLoading.classList.remove("kartta-hidden");
+    sideBarContainer.classList.add("sidebar-open")
     while (searchResultsList.firstChild) {
       searchResultsList.removeChild(searchResultsList.firstChild);
     }
