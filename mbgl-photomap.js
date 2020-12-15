@@ -253,7 +253,7 @@ class PhotoMapControl {
         removePhotoStyle();
       } else{ 
        
-        if (map.getZoom() > map.getLayer(this.layer).minzoom ){
+        if (map.getZoom() > 17 /*map.getLayer(this.layer).minzoom*/){
           this.active = true;
           map.on('click', this.layer, handle_map_click_enter_photo);
           map.on('click', this.layer, handle_map_select_polygon);
