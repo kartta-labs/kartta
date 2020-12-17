@@ -110,10 +110,11 @@ canvas.mapboxgl-canvas.crosshair-cursor {
 
 .button-photo {
   width: 17px;
+  height: 17px;
   border: 1px solid #aaa;
   padding: 5px;
   font-weight: bold;
-  font-size: 26px;
+  font-size: 24px;
   text-align: center;
   font-family: 'Zilla Slab';
   border-radius: 5px;
