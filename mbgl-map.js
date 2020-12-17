@@ -17,6 +17,7 @@
 class ThreeDControl {
   constructor(options) {
     this.getYear = options.getYear;
+    this._message = document.getElementById('map-3d-message-overlay');
   }
 
   onAdd(map) {
@@ -26,53 +27,39 @@ class ThreeDControl {
     this._container.id = "button-3d";
     this._container.textContent = '3D';
 
-    const message = document.getElementById('map-3d-message-overlay');
-
-    const handle_map_click_enter_3d = (e) => {
+    this._handle_map_click_enter_3d = (e) => {
       const lat = e.lngLat.lat;
       const lon = e.lngLat.lng;
       const url = new URL(window.location);
-      //const year = document.getElementById('year-slider').value;
       const year = this.getYear();
       window.location.href = url.origin + "/3d?year=" + year + "&lon=" + lon + "&lat=" + lat;
     };
-
-    let handle_keypress;
 
     // When 3D button is clicked:
     //   1. display the 3D message with cancel button
     //   2. change map cursor to crosshair
     //   3. listen for map clicks to switch to 3D
-    //   4. listen for esc key
     this._container.addEventListener('click', () => {
-      message.classList.remove('kartta-hidden');
-      map._canvas.classList.add('crosshair-cursor');
-      map.on('click', handle_map_click_enter_3d);
-      window.addEventListener('keydown', handle_keypress, false);
+      this._message.classList.remove('kartta-hidden');
+      this._map._canvas.classList.add('crosshair-cursor');
+      this._map.on('click', this._handle_map_click_enter_3d);
     });
 
-    // To cancel:
-    //   1. hide the 3D message
-    //   2. restore the normal map cursor
-    //   3. stop listening for map clicks
-    //   4. stop listening for esc key
-    const cancel_3d = () => {
-      message.classList.add('kartta-hidden');
-      map._canvas.classList.remove('crosshair-cursor');
-      map.off('click', handle_map_click_enter_3d);
-      window.removeEventListener('keydown', handle_keypress, false);
-    };
-
-    handle_keypress = (e) => {
-      if (e.key == 'Escape') {
-        cancel_3d();
-      }
-    };
-
-    document.getElementById('cancel-3d-button').addEventListener('click', cancel_3d);
+    document.getElementById('cancel-3d-button').addEventListener('click', () => { this.cancel(); });
 
     return this._container;
   }
+
+  // To cancel:
+  cancel() {
+    // hide the 3D message
+    this._message.classList.add('kartta-hidden');
+    // restore the normal map cursor
+    this._map._canvas.classList.remove('crosshair-cursor');
+    // stop listening for map clicks
+    this._map.off('click', this._handle_map_click_enter_3d);
+  }
+
 
   onRemove() {
     this._container.parentNode.removeChild(this._container);
@@ -130,11 +117,20 @@ document.addEventListener("DOMContentLoaded", function(){
     showCompass: false
   }));
 
-  map.addControl(new ThreeDControl({
+  const threeDControl = new ThreeDControl({
     getYear: () => {
       return currentYear;
     }
-  }));
+  });
+  map.addControl(threeDControl);
+
+  const handleKeydown =  (e) => {
+    if (e.key == 'Escape') {
+      threeDControl.cancel();
+      e.preventDefault();
+    }
+  };
+  window.addEventListener('keydown', handleKeydown);
 
   map.addControl(new PhotoMapControl({
     layer: "buildings",
