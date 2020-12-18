@@ -31,24 +31,30 @@ class PhotoMapControl {
     this.browseBounds; //current bounds of the map
 
     // When button is clicked:
-    this._container.addEventListener('click', () => {     
-      if (this.active) {
-        this.active = false;
-        this.cancelPhotomap();
-        this.removePhotoStyle();
-      } else{ 
-        if (this._map.getZoom() > 17 /*this._map.getLayer(this.layer).minzoom*/){
-          this.active = true;
-          this._map.on('click', this.layer, e => this.handleMapClickEnterPhoto(e));
-          this._map.on('click', this.layer, e => this.handleMapSelectPolygon(e));
-          this._map.on('moveend', () => this.loadPhotoData())
-          this._container.className = this._container.className + " button-photo-active";
-          this.loadPhotoData();
-        }
-      }
-    });
+    this._container.addEventListener('click', () => this.toggleActive());
     
     return this._container;
+  }
+
+  toggleActive() {
+    if (this.active) {
+      this.cancel();
+    } else{ 
+      if (this._map.getZoom() > 17 /*this._map.getLayer(this.layer).minzoom*/){
+        this.active = true;
+        this._map.on('click', this.layer, e => this.handleMapClickEnterPhoto(e));
+        this._map.on('click', this.layer, e => this.handleMapSelectPolygon(e));
+        this._map.on('moveend', () => this.loadPhotoData())
+        this._container.className = this._container.className + " button-photo-active";
+        this.loadPhotoData();
+      }
+    }
+  }
+
+  cancel() {
+    this.active = false;
+    this.cancelPhotomap();
+    this.removePhotoStyle();
   }
 
   handleMapClickEnterPhoto(e) {

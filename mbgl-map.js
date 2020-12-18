@@ -124,21 +124,14 @@ document.addEventListener("DOMContentLoaded", function(){
   });
   map.addControl(threeDControl);
 
-  const handleKeydown =  (e) => {
-    if (e.key == 'Escape') {
-      threeDControl.cancel();
-      e.preventDefault();
-    }
-  };
-  window.addEventListener('keydown', handleKeydown);
-
-  map.addControl(new PhotoMapControl({
+  const photoMapControl = new PhotoMapControl({
     layer: "buildings",
     outlineLayer: "buildings_outline",
     editorUrl: "{{ EDITOR_URL }}",
     noterUrl: "{{ NOTER_URL }}",
     noterApiUrl: "{{ NOTER_API_URL }}"
-  }));
+  });
+  map.addControl(photoMapControl);
 
 
   const layersToFilter = [
@@ -278,4 +271,21 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
   }
+
+  const handleKeydown = (e) => {
+    if (e.target == searchQueryText) {
+      // don't consume keyboard events from search text box
+      return;
+    }
+    if (e.key == 'Escape') {
+      threeDControl.cancel();
+      photoMapControl.cancel();
+      e.preventDefault();
+    } else if (e.key == 'i') {
+      photoMapControl.toggleActive();
+      e.preventDefault();
+    }
+  };
+  window.addEventListener('keydown', handleKeydown);
+
 });
