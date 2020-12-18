@@ -121,7 +121,7 @@ canvas.mapboxgl-canvas.crosshair-cursor {
   background-color: white;
 }
 
-.button-photo-active {
+.button-photo-enabled {
   background-color: grey;
 }
 

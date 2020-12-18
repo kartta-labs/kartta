@@ -25,34 +25,34 @@ class PhotoMapControl {
     this.searchResults = document.getElementById("search-results");
     this.searchResultsList = document.getElementById("search-results-list");
     this.searchResultsLoading = document.getElementById("search-results-loading");
-    this.active = false;
+    this.enabled = false;
     this.anno_ids = []; // array of ids suitable for mapping
     this.annotations = []; // structure from API containing 
     this.browseBounds; //current bounds of the map
 
     // When button is clicked:
-    this._container.addEventListener('click', () => this.toggleActive());
+    this._container.addEventListener('click', () => this.toggleEnabled());
     
     return this._container;
   }
 
-  toggleActive() {
-    if (this.active) {
+  toggleEnabled() {
+    if (this.enabled) {
       this.cancel();
     } else{ 
       if (this._map.getZoom() > 17 /*this._map.getLayer(this.layer).minzoom*/){
-        this.active = true;
+        this.enabled = true;
         this._map.on('click', this.layer, e => this.handleMapClickEnterPhoto(e));
         this._map.on('click', this.layer, e => this.handleMapSelectPolygon(e));
         this._map.on('moveend', () => this.loadPhotoData())
-        this._container.className = this._container.className + " button-photo-active";
+        this._container.className = this._container.className + " button-photo-enabled";
         this.loadPhotoData();
       }
     }
   }
 
   cancel() {
-    this.active = false;
+    this.enabled = false;
     this.cancelPhotomap();
     this.removePhotoStyle();
   }

@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function(){
       photoMapControl.cancel();
       e.preventDefault();
     } else if (e.key == 'i') {
-      photoMapControl.toggleActive();
+      photoMapControl.toggleEnabled();
       e.preventDefault();
     }
   };
