@@ -13,6 +13,15 @@ class PhotoMapControl {
     this.editorUrl = options.editorUrl;
     this.noterUrl = options.noterUrl; // https://re.city/nf/?query=312454650
     this.noterApiUrl = options.noterApiUrl;
+
+    this.mapOnClick = (e) => {
+      this.handleMapClickEnterPhoto(e);
+      this.handleMapSelectPolygon(e);
+    };
+
+    this.mapOnMoveend = () => {
+      this.loadPhotoData();
+    }
   }
 
   onAdd(map) {
@@ -70,9 +79,9 @@ class PhotoMapControl {
 
   enable() {
     this.enabled = true;
-    this._map.on('click', this.layer, e => this.handleMapClickEnterPhoto(e));
-    this._map.on('click', this.layer, e => this.handleMapSelectPolygon(e));
-    this._map.on('moveend', () => this.loadPhotoData())
+    this._map.on('click', this.layer, this.mapOnClick);
+    this._map.on('moveend', this.layer, this.mapOnMoveend);
+
     this._container.className = this._container.className + " button-photo-enabled";
     this.loadPhotoData();
   }
@@ -308,13 +317,12 @@ class PhotoMapControl {
   }
  
   cancelPhotomap() {
-    this._map.off('click', this.layer, e => this.handleMapClickEnterPhoto(e));
-    this._map.off('click', this.layer, e => this.handleMapSelectPolygon(e));
-    this._map.off('moveend', () => this.loadPhotoData());
+    this._map.off('click', this.layer, this.mapOnClick);
+    this._map.off('moveend', this.layer, this.mapOnMoveend);
     this.removeHighlight();
     this.browseBounds = null;
     this._container.className = "mapboxgl-ctrl button-photo";
-    this.sideBarContainer.classList.remove("sidebar-open")
+    this.sideBarContainer.classList.remove("sidebar-open");
     this.searchResults.classList.add('kartta-hidden');
   };
 
