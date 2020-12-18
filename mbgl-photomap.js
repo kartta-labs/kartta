@@ -25,10 +25,25 @@ class PhotoMapControl {
     this.searchResults = document.getElementById("search-results");
     this.searchResultsList = document.getElementById("search-results-list");
     this.searchResultsLoading = document.getElementById("search-results-loading");
-    this.enabled = false;
     this.anno_ids = []; // array of ids suitable for mapping
     this.annotations = []; // structure from API containing 
     this.browseBounds; //current bounds of the map
+
+    // Note on "enabled" vs "active" terminology used in this file:
+    // 
+    // "enabled" means the user has enabled the photo/info display feature, i.e. the 'i' button
+    // is in its clicked/down state (grey).  The user toggles "enabled" explicitly by clicking
+    // the 'i' button, or via the 'i' key shortcut.
+    // 
+    // "active" means the current zoom level is >= 17 so we can display photo data.
+    // 
+    // Photo data is displayed, and buildings can be clicked on, only when both "enabled" and "active" are true.
+    // 
+    // "enabled" is indicated/controlled by an instance variable.
+    // 
+    // "active" is indicated by the isActive method.
+
+    this.enabled = false;
 
     // When button is clicked:
     this._container.addEventListener('click', () => this.toggleEnabled());
@@ -36,22 +51,33 @@ class PhotoMapControl {
     return this._container;
   }
 
+  isActive() {
+    return this._map.getZoom() > 17 /*this._map.getLayer(this.layer).minzoom*/;
+  }
+
   toggleEnabled() {
     if (this.enabled) {
-      this.cancel();
+      this.disable();
     } else{ 
-      if (this._map.getZoom() > 17 /*this._map.getLayer(this.layer).minzoom*/){
-        this.enabled = true;
-        this._map.on('click', this.layer, e => this.handleMapClickEnterPhoto(e));
-        this._map.on('click', this.layer, e => this.handleMapSelectPolygon(e));
-        this._map.on('moveend', () => this.loadPhotoData())
-        this._container.className = this._container.className + " button-photo-enabled";
-        this.loadPhotoData();
+//      if (this._map.getZoom() > 17 /*this._map.getLayer(this.layer).minzoom*/){
+      if (!this.isActive()) {
+        console.log('zoom in to use this feature');
+        return;
       }
+      this.enable();
     }
   }
 
-  cancel() {
+  enable() {
+    this.enabled = true;
+    this._map.on('click', this.layer, e => this.handleMapClickEnterPhoto(e));
+    this._map.on('click', this.layer, e => this.handleMapSelectPolygon(e));
+    this._map.on('moveend', () => this.loadPhotoData())
+    this._container.className = this._container.className + " button-photo-enabled";
+    this.loadPhotoData();
+  }
+
+  disable() {
     this.enabled = false;
     this.cancelPhotomap();
     this.removePhotoStyle();
@@ -206,7 +232,7 @@ class PhotoMapControl {
     if (this.browseBounds && (this.browseBounds.contains(bounds._sw) && this.browseBounds.contains(bounds._ne) )){
       return;
     }
-    if (this._map.getZoom() < 17 /*this._map.getLayer(this.layer).minzoom*/){
+    if (!this.isActive()) {
      return;
     }
 

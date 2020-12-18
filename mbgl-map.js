@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
     if (e.key == 'Escape') {
       threeDControl.cancel();
-      photoMapControl.cancel();
+      photoMapControl.disable();
       e.preventDefault();
     } else if (e.key == 'i') {
       photoMapControl.toggleEnabled();
