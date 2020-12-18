@@ -161,6 +161,21 @@ canvas.mapboxgl-canvas.crosshair-cursor {
   font-weight: bold;
 }
 
+#map-info-zoom-message {
+  position: absolute;
+  top: 115px;
+  right: 0px;
+  bottom: 0;
+  background-color: rgba(255,255,255,0.6);
+  height: max-content;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .kartta-hidden {
   display: none;
 }

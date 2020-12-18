@@ -14,6 +14,7 @@ class PhotoMapControl {
     this.noterUrl = options.noterUrl; // https://re.city/nf/?query=312454650
     this.noterApiUrl = options.noterApiUrl;
     this.savedPhotoStyle = null;
+    this.mapInfoZoomMessage = document.getElementById('map-info-zoom-message');
 
     this.mapOnClick = (e) => {
       if (!this.isActive()) {
@@ -76,9 +77,13 @@ class PhotoMapControl {
     if (this.enabled) {
       this.disable();
     } else{ 
-//      if (this._map.getZoom() > 17 /*this._map.getLayer(this.layer).minzoom*/){
       if (!this.isActive()) {
-        console.log('zoom in to use this feature');
+
+        this.mapInfoZoomMessage.classList.remove("kartta-hidden");
+        setTimeout(() => {
+          this.mapInfoZoomMessage.classList.add("kartta-hidden");
+        }, 1500);
+
         return;
       }
       this.enable();
