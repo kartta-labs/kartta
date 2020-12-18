@@ -13,13 +13,21 @@ class PhotoMapControl {
     this.editorUrl = options.editorUrl;
     this.noterUrl = options.noterUrl; // https://re.city/nf/?query=312454650
     this.noterApiUrl = options.noterApiUrl;
+    this.savedPhotoStyle = null;
 
     this.mapOnClick = (e) => {
+      if (!this.isActive()) {
+        return;
+      }
       this.handleMapClickEnterPhoto(e);
       this.handleMapSelectPolygon(e);
     };
 
     this.mapOnMoveend = () => {
+      if (!this.isActive()) {
+        this.removePhotoStyle();
+        return;
+      }
       this.loadPhotoData();
     }
   }
@@ -304,6 +312,12 @@ class PhotoMapControl {
   showPhotoStyle() {
     // highlight the building lines
     if (this.anno_ids.length > 0){
+      this.savedPhotoStyle = {
+        'line-color':    this._map.getPaintProperty(this.outlineLayer, 'line-color'),
+        'line-width':    this._map.getPaintProperty(this.outlineLayer, 'line-width'),
+        'line-opacity':  this._map.getPaintProperty(this.outlineLayer, 'line-opacity')
+      };
+
       this._map.setPaintProperty(this.outlineLayer, 'line-color',   ['match', ['feature-state','footprint'], [...this.anno_ids], '#de683d', '#aaaaaa'  ]); 
       this._map.setPaintProperty(this.outlineLayer, 'line-width',   ['match', ['feature-state','footprint'], [...this.anno_ids], 4.5 , 1.5] ); 
       this._map.setPaintProperty(this.outlineLayer, 'line-opacity', ['match', ['feature-state','footprint'], [...this.anno_ids], 1 , 0.5 ]);  
@@ -311,9 +325,12 @@ class PhotoMapControl {
   }
 
   removePhotoStyle() {
-    this._map.setPaintProperty(this.outlineLayer, 'line-color',   '#aaaaaa' );  
-    this._map.setPaintProperty(this.outlineLayer, 'line-width',   {"stops":[[15,0.5],[21,1.5]]});  
-    this._map.setPaintProperty(this.outlineLayer, 'line-opacity',  1 );  
+    if (this.savedPhotoStyle != null) {
+      this._map.setPaintProperty(this.outlineLayer, 'line-color', this.savedPhotoStyle['line-color']);
+      this._map.setPaintProperty(this.outlineLayer, 'line-width', this.savedPhotoStyle['line-width']);
+      this._map.setPaintProperty(this.outlineLayer, 'line-opacity', this.savedPhotoStyle['line-opacity']);
+      this.savedPhotoStyle = null;
+    }
   }
  
   cancelPhotomap() {
