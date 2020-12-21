@@ -146,7 +146,8 @@ class PhotoMapControl {
     a.textContent = "Open Editor for this feature";
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      location.replace(this.editorUrl+"/edit?disable_features=date_range&start_date="+this.getYear()+"&way="+footprintId);
+      const year = parseInt(this.getYear());
+      location.replace(this.editorUrl+"/edit?disable_features=date_range&start_date="+year+"&end_date="+(year+1)+"&way="+footprintId);
     });
     commonP.appendChild(a);
 
