@@ -309,3 +309,12 @@ canvas.mapboxgl-canvas.crosshair-cursor {
   list-style: none;
   padding-inline-start: 0px ;
 }
+
+table.building-info {
+  border-collapse: collapse;
+}
+
+table.building-info tr td {
+  border: 1px solid black;
+  padding: 5px;
+}

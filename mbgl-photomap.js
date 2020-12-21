@@ -117,7 +117,7 @@ class PhotoMapControl {
       id: e.features[0].id
       }).footprint;
     // check to see if the building has a photo associated with it
-    if (this.anno_ids.indexOf(footprintId) != -1 && getPhotos(footprintId).length > 0) {
+    if (this.anno_ids.indexOf(footprintId) != -1 && this.getPhotos(footprintId).length > 0) {
       this.searchResultsList.appendChild(this.photoItem(footprintId));
     }else {
       const helpDiv = document.createElement("div");
@@ -173,6 +173,79 @@ class PhotoMapControl {
     this.sideBarContainer.classList.add("sidebar-open")
   }
 
+  getFeatureName(feature, wayId) {
+    if (feature.properties.name) {
+      return feature.properties.name;
+    }
+    if (!(wayId in this.elements['way'])) {
+      return null;
+    }
+    return this.elements['way'][wayId]['tags']['name'];
+  }
+
+  getFeatureType(feature, wayId) {
+    if (feature.properties.type) {
+      return feature.properties.type;
+    }
+    if (!(wayId in this.elements['way'])) {
+      return null;
+    }
+    return this.elements['way'][wayId]['tags']['building'];
+  }
+
+  getFeatureStartDate(feature, wayId) {
+    if (feature.properties.start_date) {
+      return feature.properties.start_date;
+    }
+    if (!(wayId in this.elements['way'])) {
+      return null;
+    }
+    return this.elements['way'][wayId]['tags']['start_date'];
+  }
+
+  getFeatureEndDate(feature, wayId) {
+    if (feature.properties.end_date) {
+      return feature.properties.end_date;
+    }
+    if (!(wayId in this.elements['way'])) {
+      return null;
+    }
+    return this.elements['way'][wayId]['tags']['end_date'];
+  }
+
+  getFeatureHouseNumber(feature, wayId) {
+    if (!(wayId in this.elements['way'])) {
+      return null;
+    }
+    return this.elements['way'][wayId]['tags']['addr:housenumber'];
+  }
+
+  getFeaturePostCode(feature, wayId) {
+    if (!(wayId in this.elements['way'])) {
+      return null;
+    }
+    return this.elements['way'][wayId]['tags']['addr:postcode'];
+  }
+
+  getFeatureStreet(feature, wayId) {
+    if (!(wayId in this.elements['way'])) {
+      return null;
+    }
+    return this.elements['way'][wayId]['tags']['addr:street'];
+  }
+
+  maybeAddBuildingInfoTableRow(table, name, value) {
+    if (!value) { return; }
+    const tr = document.createElement("tr");
+    const td0 = document.createElement("td");
+    td0.textContent = name;
+    tr.appendChild(td0);
+    const td1 = document.createElement("td");
+    td1.textContent = value;
+    tr.appendChild(td1);
+    table.appendChild(tr);
+  }
+
   buildingItem(feature) {
     const buildingDiv = document.createElement("div");
     buildingDiv.classList.add("photodiv");
@@ -182,36 +255,17 @@ class PhotoMapControl {
       sourceLayer: this.layer,
       id: feature.id
       }).footprint;
-    if (feature.properties.name) {
-      header.textContent = "Building: " + feature.properties.name;
-    }else{
-      header.textContent = "Unnamed Building: "+ footprintId;
-    }
-    buildingDiv.appendChild(header);
-    const ul = document.createElement("ul");
-    ul.classList.add('unstyled');
 
-    if (feature.properties.type){
-      const featuretype = document.createElement("li")
-      let ftype = feature.properties.type;
-      if (ftype == "yes") {
-        ftype = "building"
-      }
-      featuretype.textContent = "Type: "+ ftype;
-      ul.appendChild(featuretype)
-    }
-    if (feature.properties.start_date || feature.properties.start_date){
-      const dates = document.createElement("li")
-      if (feature.properties.start_date){
-        dates.textContent = "Start: "+ feature.properties.start_date + " ";
-      }
-      if (feature.properties.end_date){
-        dates.textContent = "End: "+ feature.properties.end_date
-      }
-      ul.appendChild(dates)
-    }
- 
-    buildingDiv.appendChild(ul);
+    const table = document.createElement("table");
+    table.classList.add("building-info");
+    this.maybeAddBuildingInfoTableRow(table, "name", this.getFeatureName(feature, footprintId));
+    this.maybeAddBuildingInfoTableRow(table, "type", this.getFeatureType(feature, footprintId));
+    this.maybeAddBuildingInfoTableRow(table, "start_date", this.getFeatureStartDate(feature, footprintId));
+    this.maybeAddBuildingInfoTableRow(table, "end_date", this.getFeatureEndDate(feature, footprintId));
+    this.maybeAddBuildingInfoTableRow(table, "addr:housenumber", this.getFeatureHouseNumber(feature, footprintId));
+    this.maybeAddBuildingInfoTableRow(table, "addr:street", this.getFeatureStreet(feature, footprintId));
+    this.maybeAddBuildingInfoTableRow(table, "addr:postcode", this.getFeaturePostCode(feature, footprintId));
+    buildingDiv.appendChild(table);
   
     return buildingDiv;
   }
@@ -361,6 +415,7 @@ class PhotoMapControl {
   //       noterImageId: < id for the image in noter >
   //       facadeLine: < coordinates of the facade line for the photo >
   //     }
+  // Has the side effect of saving a map of the loaded data in this.elements.
   photoAnnotations(json) {
     const elements = {
       'node': {},
@@ -390,7 +445,7 @@ class PhotoMapControl {
        // facadeLine: facadeLine
       };
     });
-
+    this.elements = elements;
     return annotations;
   };
 
@@ -403,12 +458,12 @@ class PhotoMapControl {
     json.elements.forEach(element => {
       elements[element.type][element.id] = element;
     });
-    const multi = {}
+    const multi = {};
     json.elements.forEach(element => {
       if (element.type == 'relation' && 'building' in element.tags ){
         if (element.tags.type && element.members && element.tags.type == 'multipolygon'){
-          const outer = element.members.filter(member => member.role == 'outer')[0]
-          multi[element.id] = elements['way'][outer.ref]
+          const outer = element.members.filter(member => member.role == 'outer')[0];
+          multi[element.id] = elements['way'][outer.ref];
         }
       }
     });
