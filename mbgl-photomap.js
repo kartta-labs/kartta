@@ -3,7 +3,8 @@
 //   outlineLayer: "buildings_outline",
 //   editorUrl:   "https://re.city/e",
 //   noterUrl: "https://re.city/nf",
-//   noterApiUrl: "https://re.city/nb"
+//   noterApiUrl: "https://re.city/nb",
+//   getYear: <function returning current time slider year>
 // }));
 
 class PhotoMapControl {
@@ -13,6 +14,7 @@ class PhotoMapControl {
     this.editorUrl = options.editorUrl;
     this.noterUrl = options.noterUrl; // https://re.city/nf/?query=312454650
     this.noterApiUrl = options.noterApiUrl;
+    this.getYear = options.getYear;
     this.savedPhotoStyle = null;
     this.mapInfoZoomMessage = document.getElementById('map-info-zoom-message');
 
@@ -139,11 +141,13 @@ class PhotoMapControl {
     const commonP = document.createElement("p")
     commonP.textContent = "Do you have a photo for this feature? Want to make a correction to the shape and/or data associated with it?  You can upload photos and enter/edit the feature's data in the editor.";
     commonP.appendChild(document.createElement("br"));
-    const url = this.editorUrl+"/edit?way="+footprintId;
     const a = document.createElement("a");
-    a.setAttribute("href", url);
-    a.setAttribute("target", "new");
+    a.setAttribute("href", "#");
     a.textContent = "Open Editor for this feature";
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      location.replace(this.editorUrl+"/edit?disable_features=date_range&start_date="+this.getYear()+"&way="+footprintId);
+    });
     commonP.appendChild(a);
 
     commonDiv.appendChild(commonP);

@@ -129,7 +129,10 @@ document.addEventListener("DOMContentLoaded", function(){
     outlineLayer: "buildings_outline",
     editorUrl: "{{ EDITOR_URL }}",
     noterUrl: "{{ NOTER_URL }}",
-    noterApiUrl: "{{ NOTER_API_URL }}"
+    noterApiUrl: "{{ NOTER_API_URL }}",
+    getYear: () => {
+      return currentYear;
+    }
   });
   map.addControl(photoMapControl);
 
