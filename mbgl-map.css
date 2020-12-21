@@ -110,17 +110,18 @@ canvas.mapboxgl-canvas.crosshair-cursor {
 
 .button-photo {
   width: 17px;
+  height: 17px;
   border: 1px solid #aaa;
   padding: 5px;
   font-weight: bold;
-  font-size: 26px;
+  font-size: 24px;
   text-align: center;
   font-family: 'Zilla Slab';
   border-radius: 5px;
   background-color: white;
 }
 
-.button-photo-active {
+.button-photo-enabled {
   background-color: grey;
 }
 
@@ -149,6 +150,21 @@ canvas.mapboxgl-canvas.crosshair-cursor {
 #map-3d-message-overlay {
   position: absolute;
   top: 20px;
+  bottom: 0;
+  background-color: rgba(255,255,255,0.6);
+  height: max-content;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#map-info-zoom-message {
+  position: absolute;
+  top: 115px;
+  right: 0px;
   bottom: 0;
   background-color: rgba(255,255,255,0.6);
   height: max-content;
@@ -292,4 +308,13 @@ canvas.mapboxgl-canvas.crosshair-cursor {
 #search-results-results ul.unstyled {
   list-style: none;
   padding-inline-start: 0px ;
+}
+
+table.building-info {
+  border-collapse: collapse;
+}
+
+table.building-info tr td {
+  border: 1px solid black;
+  padding: 5px;
 }
