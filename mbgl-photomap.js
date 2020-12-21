@@ -185,13 +185,15 @@ class PhotoMapControl {
   }
 
   getFeatureType(feature, wayId) {
+    // Ignore type/building values of "yes"
     if (feature.properties.type) {
-      return feature.properties.type;
+      return feature.properties.type != "yes" ? feature.properties.type : null;
     }
     if (!(wayId in this.elements['way'])) {
       return null;
     }
-    return this.elements['way'][wayId]['tags']['building'];
+    const building = this.elements['way'][wayId]['tags']['building']; 
+    return building != "yes" ? building : null;
   }
 
   getFeatureStartDate(feature, wayId) {
@@ -260,12 +262,12 @@ class PhotoMapControl {
     const table = document.createElement("table");
     table.classList.add("building-info");
     this.maybeAddBuildingInfoTableRow(table, "name", this.getFeatureName(feature, footprintId));
-    this.maybeAddBuildingInfoTableRow(table, "type", this.getFeatureType(feature, footprintId));
-    this.maybeAddBuildingInfoTableRow(table, "start_date", this.getFeatureStartDate(feature, footprintId));
-    this.maybeAddBuildingInfoTableRow(table, "end_date", this.getFeatureEndDate(feature, footprintId));
     this.maybeAddBuildingInfoTableRow(table, "addr:housenumber", this.getFeatureHouseNumber(feature, footprintId));
     this.maybeAddBuildingInfoTableRow(table, "addr:street", this.getFeatureStreet(feature, footprintId));
     this.maybeAddBuildingInfoTableRow(table, "addr:postcode", this.getFeaturePostCode(feature, footprintId));
+    this.maybeAddBuildingInfoTableRow(table, "start_date", this.getFeatureStartDate(feature, footprintId));
+    this.maybeAddBuildingInfoTableRow(table, "end_date", this.getFeatureEndDate(feature, footprintId));
+    this.maybeAddBuildingInfoTableRow(table, "type", this.getFeatureType(feature, footprintId));
     buildingDiv.appendChild(table);
   
     return buildingDiv;
