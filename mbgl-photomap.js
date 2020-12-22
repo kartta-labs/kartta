@@ -329,9 +329,20 @@ class PhotoMapControl {
      }).then(response => {
        return response.json();
      }).then(result => {
-       this.annotations = this.photoAnnotations(result);
-       this.anno_ids = this.idsFromAnnotations(this.annotations)
+       //merge in new annotations with existing
+       const merged_anno = this.annotations.concat(this.photoAnnotations(result)); 
+       //remove duplicates
+       let deduped = [];
+       merged_anno.forEach(function(obj) {
+         let index = deduped.findIndex(x => x.buildingId === obj.buildingId);
+         if (index == -1) {
+           deduped.push(obj);
+         } 
+       });
+       this.annotations = deduped;
 
+       this.anno_ids = this.idsFromAnnotations(this.annotations);
+   
        this.updateFeatureState(this.getMultipolygons(result));
        
        this.showPhotoStyle();    
